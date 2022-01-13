@@ -1,0 +1,91 @@
+h2{
+    counter-reset:section;
+}
+.count:before {
+    counter-increment: section;
+    content: counter(section);
+  }
+
+
+html {
+    height: 100vh;
+    overflow-x: hidden;
+}
+  
+body {
+    height: 500vh;
+    background: #000;
+    color: aliceblue;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.banner-text{
+    z-index: 2;
+    position: absolute;
+    margin:auto;
+    top: 50%;
+    width:100%;
+    height:500px;
+    opacity:0.8;
+    text-align: center;
+    font-size: 120px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.banner-text2{
+    z-index: 2;
+    position: absolute;
+    margin:auto;
+    top: 110%;
+    width:100%;
+    height:500px;
+    opacity: 1;
+    text-align: center;
+    font-size: 120px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.banner-text3{
+    z-index: 2;
+    position: absolute;
+    margin:auto;
+    top:100%;
+    width:100%;
+    height:500px;
+    opacity: 0.9;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;    
+}
+
+.start-button{
+    z-index: 2;
+    position: absolute;
+    top:475%;
+    border-radius: 100px 100px 100px 100px;
+    margin-left: 43%;
+    padding-inline: 95px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: white;
+    border: 0px solid #000000;
+    box-shadow: 0px 5px 5px 0px rgba(222,222,222,255);
+    background: linear-gradient(to bottom, rgb(127, 190, 248) 0%, rgba(32,124,229,1) 100%);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+
+canvas {
+    z-index: 1;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+

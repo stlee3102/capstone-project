@@ -1,0 +1,14 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Map Your Roadtrip!{% endblock %}
+
+{% block content %}
+
+<h1> LIST OF USERS! </h1>
+The list of users:
+
+{% for user in list_users %}
+<li><a href="/users/{{user.user_id}}">{{user.email}}</a></li>
+{% endfor %}
+{% endblock %}

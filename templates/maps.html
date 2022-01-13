@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Map Your Roadtrip!{% endblock %}
+
+{% block content %}
+<br>
+{% for map in list_maps %}
+<h2>Map # {{loop.index}}</h2>
+<ul>
+<li>Start Pt: {{map.start_pt}}</li>
+<li>End Pt: {{map.end_pt}}</li>
+<li>Map ID: {{map.map_id}}<li>
+<li>User ID: {{map.user_id}}</li>
+<li>First Name: {{map.user.fname}}</li>
+<li>Last Name: {{map.user.lname}}</li>
+</ul>
+
+<p>
+    <a class="btn btn-primary btn-outline-light" href="/main">
+    Display Map
+    </a>
+        
+    <a class="btn btn-danger btn-outline-light" href="/delete-map/{{map.map_id}}" method="GET">
+    Delete
+    </a>
+</p>
+
+
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Map Your Roadtrip!{% endblock %}
+
+{% block content %}
+
+<h1>{{ user.email }}</h1>
+
+Password: {{user.password}}
+<br>
+
+First Name: {{user.fname}}
+<br>
+Last Name: {{user.lname}}
+<br>
+ID : {{user.user_id}}
+
+{% endblock %}
