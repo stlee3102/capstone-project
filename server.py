@@ -1,14 +1,19 @@
-from flask import (Flask, render_template, request, flash, session, redirect, url_for)
+from flask import (Flask, render_template, request, flash, session, redirect, url_for, jsonify)
 from model import connect_to_db
 import crud
 from flask_sqlalchemy import SQLAlchemy
 
 from jinja2 import StrictUndefined
 
+import os
+import polyline
+
 app = Flask(__name__)
 app.secret_key = 'dev'
 app.jinja_env.undefined = StrictUndefined
 
+
+MAPS_API_KEY = os.environ['GOOGLE_MAPS_KEY']
 
 @app.route('/')
 def index():
@@ -20,13 +25,11 @@ def index():
 def main():
 
     if session.get("logged_in_user"):
-
-        user = crud.get_user_by_email(session.get("logged_in_user"))
-   
-        return render_template('main.html', user=user)
+        user = crud.get_user_by_email(session.get("logged_in_user"))   
+        return render_template('main.html', user=user, MAPS_API_KEY = MAPS_API_KEY)
 
     else:
-        return render_template('main.html')
+        return render_template('main.html', MAPS_API_KEY = MAPS_API_KEY)
 
 
 @app.route('/register')
@@ -144,7 +147,23 @@ def delete_map(map_id):
     return redirect('/user-maps')
 
 
+@app.route("/decode-polyline", methods=["POST"])
+def decode_polyline():
+    """Use polyline library to decode polyline string to coordinates"""
+    plyline = request.json['polyline']
+    coordinates = polyline.decode(plyline)
+    geojson=True
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    print(geojson)
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    return jsonify({'coord':coordinates})
+
+
+
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
     connect_to_db(app)
     app.run(host="0.0.0.0", debug=True)
+
+
+    

@@ -63,13 +63,16 @@
 
       <div id="google-map"></div>
       <div id="sidebar"></div>
+      <div id="route-coordinates"></div>
+
 
         <!-- Load Google Maps API -->
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6DHn9JTpSiaiptgq-dZS9ngPE_HC8QMU&callback=initMap&v=weekly"></script>
-        <!-- Load Google Maps Places Library API -->
-        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6DHn9JTpSiaiptgq-dZS9ngPE_HC8QMU&libraries=places&callback=initMap"></script>
-      
+     
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ MAPS_API_KEY }}&libraries=geometry,places&callback=initMap&v=weekly"></script>
 
+
+
+      
       <div id="debug">        
   <ul>
     <li><a href="/users">View all users</a></li>

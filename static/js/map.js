@@ -1,3 +1,5 @@
+let waypoints = [];
+
 function initMap() {
     const map = new google.maps.Map(document.getElementById("google-map"), {
         mapTypeControl: false,
@@ -7,7 +9,6 @@ function initMap() {
     });
 
     new AutocompleteDirectionsHandler(map);
-
 
 }
   
@@ -27,6 +28,7 @@ class AutocompleteDirectionsHandler {
         this.directionsRenderer = new google.maps.DirectionsRenderer();
         this.directionsRenderer.setMap(map);  
         
+        
         //Display text directions
         this.directionsRenderer.setPanel(document.getElementById("sidebar"))
 
@@ -34,12 +36,13 @@ class AutocompleteDirectionsHandler {
         const destinationInput = document.getElementById("end_pt");
         const modeSelector = document.getElementById("mode-selector");
 
-        // Specify just the place data fields that you need.
+        // Autocomplete origin address
         const originAutocomplete = new google.maps.places.Autocomplete(
         originInput,
         { fields: ["place_id"] }
         );
-        // Specify just the place data fields that you need.
+
+        // Autocomplete destination address
         const destinationAutocomplete = new google.maps.places.Autocomplete(
         destinationInput,
         { fields: ["place_id"] }
@@ -66,8 +69,7 @@ class AutocompleteDirectionsHandler {
         this.planTripListener();
     }
 
-    // Sets a listener on a radio button to change the filter type on Places
-    // Autocomplete.
+    // Sets a listener on a radio button to change the transportation mode
     setupClickListener(id, mode) {
         const radioButton = document.getElementById(id);
 
@@ -120,11 +122,37 @@ class AutocompleteDirectionsHandler {
         },
         (response, status) => {
             if (status === "OK") {
-            me.directionsRenderer.setDirections(response);
+                me.directionsRenderer.setDirections(response);
+
+                const data = {
+                    polyline: response.routes[0].overview_polyline,
+                };
+            
+                fetch('/decode-polyline', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                    'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => response.json())
+                .then(responseJson => {                    
+                    waypoints = responseJson.coord; //all route coordinates assigned to waypoints
+
+                    document.querySelector('#debug').insertAdjacentHTML(
+                        'beforeend',
+                        
+                        ` <li>${waypoints}</li>`,
+                      );
+
+                });           
             } else {
             window.alert("Directions request failed due to " + status);
             }
+
+           
         }
         );
     }
 }
+

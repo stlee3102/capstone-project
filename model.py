@@ -1,5 +1,3 @@
-"""Models for movie ratings app."""
-
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -33,12 +31,37 @@ class Map(db.Model):
                         primary_key=True)
     start_pt = db.Column(db.String)
     end_pt = db.Column(db.String)
+    mode = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
 
     user = db.relationship("User", backref="maps")
 
+
+
     def __repr__(self):
         return f'<Map map_id={self.map_id} start_pt={self.start_pt} end_pt={self.end_pt}>'
+
+class Store(db.Model):
+    """Store information."""
+
+    __tablename__ = "stores"
+
+    store_id = db.Column(db.Integer,
+                        autoincrement=True,
+                        primary_key=True)
+    name = db.Column(db.String)
+    address = db.Column(db.String)
+    city = db.Column(db.String)
+    state = db.Column(db.String)
+    zip = db.Column(db.String)
+    phone = db.Column(db.String)
+    hours = db.Column(db.String)
+    lat = db.Column(db.Float)
+    long = db.Column(db.Float)
+
+
+    def __repr__(self):
+        return f'<Store store_id={self.store_id} name={self.name} lat={self.lat} long={self.long}>'
 
 
 
