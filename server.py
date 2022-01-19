@@ -46,6 +46,14 @@ def show_login():
     return render_template('login.html')
 
 
+@app.route('/admin')
+def show_admin():
+    """Show admin dashboard."""
+    user = crud.get_user_by_email(session.get("logged_in_user"))
+
+    return render_template('admin.html', user=user)
+
+
 @app.route('/login', methods=["POST"])
 def login_user():
 
@@ -57,7 +65,11 @@ def login_user():
         if password == user.password:
             flash(f"Successful login! Logged in {user.user_id} {user.email} {user.password}")
             session["logged_in_user"] = user.email
-            return redirect(f'/main')
+
+            if user.email == 'admin@test.com':
+                return render_template('admin.html', user=user)
+            else:
+                return redirect(f'/main')
 
         else:
             flash("incorrect password, try again")
@@ -77,10 +89,12 @@ def process_logout():
 
 @app.route('/users')
 def show_all_users():
+    
+    user = crud.get_user_by_email(session.get("logged_in_user"))
 
     list_users = crud.return_all_users()
 
-    return render_template('users.html', list_users=list_users)
+    return render_template('users.html', list_users=list_users, user=user)
 
 
 @app.route('/users', methods=["POST"])
@@ -98,7 +112,7 @@ def register_user():
         #create user
         crud.create_user(fname, lname, email, password)
         #automatically log in new user
-        user = crud.get_user_by_email(user_email)
+        user = crud.get_user_by_email(email)
         session["logged_in_user"] = user.email
         flash("Account successfully registered")
     return redirect(f"/main")
@@ -112,15 +126,32 @@ def show_user(user_id):
     return render_template('user_details.html', user=user)
 
 
-@app.route('/map-action', methods=["POST"])
+@app.route("/display-map-action", methods=["GET"])
+def display_map_selection():
+    start_pt = request.json['start_pt']
+    end_pt = request.json.get['end_pt']
+    mode = request.json.get['mode']
+    user = crud.get_user_by_email(session.get("logged_in_user"))   
+
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    print(start_pt)
+    print(end_pt)
+    print(mode)
+    print(user)
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    return render_template('display-main.html', user=user, MAPS_API_KEY=MAPS_API_KEY, start_pt=start_pt, end_pt=end_pt)
+
+
+@app.route('/map-action', methods=["GET","POST"])
 def map_selection():
     if request.form['trip-button'] == 'Save My Trip':
         user = crud.get_user_by_email(session.get("logged_in_user"))
         start_pt = request.form.get("start_pt")
         end_pt = request.form.get("end_pt")
-        crud.create_map(start_pt, end_pt, user.user_id)
+        mode = request.form.get("mode")
+        crud.create_map(start_pt, end_pt, mode, user.user_id)
         return redirect('/user-maps')
-    
+
 
 @app.route('/user-maps')
 def show_user_maps():
@@ -129,16 +160,18 @@ def show_user_maps():
 
     list_maps = crud.get_maps_by_user_id(user.user_id)
     
-    return render_template('maps.html', list_maps=list_maps)
+    return render_template('maps.html', user=user, list_maps=list_maps)
 
 
 @app.route('/all-maps')
 def show_all_maps():
     """Show all saved maps."""
 
+    user = crud.get_user_by_email(session.get("logged_in_user"))
+
     list_maps = crud.return_all_maps()
 
-    return render_template('maps.html', list_maps=list_maps)
+    return render_template('maps.html', user=user, list_maps=list_maps)
 
 
 @app.route('/delete-map/<map_id>', methods=["GET"])
@@ -153,10 +186,31 @@ def decode_polyline():
     plyline = request.json['polyline']
     coordinates = polyline.decode(plyline)
     geojson=True
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    print(geojson)
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     return jsonify({'coord':coordinates})
+
+
+@app.route("/store-info")
+def all_store_info():
+    """Retrieve all store locations from db and send to map.js"""
+    store_info = crud.return_all_stores() #returns list objects
+
+    #convert list objects to dictionary to prep for jasonify
+    store_dict = {}
+
+    for store in store_info:
+        store_dict[store.store_id] = {
+            "name": store.name,
+            "address": store.address,
+            "city": store.city,
+            "state": store.state,
+            "zip": store.zip,
+            "phone": store.phone,
+            "hours": store.hours,
+            "lat": store.lat,
+            "long": store.long,
+        }
+
+    return jsonify({'store_info':store_dict})
 
 
 

@@ -11,4 +11,7 @@ The list of users:
 {% for user in list_users %}
 <li><a href="/users/{{user.user_id}}">{{user.email}}</a></li>
 {% endfor %}
+<br>
+<a href="/admin">Back to Admin Dashboard</a>
+
 {% endblock %}

@@ -19,13 +19,19 @@
             </a>
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav">
+
                     {% if 'logged_in_user' not in session %}
                     <a class="nav-link" href="/login">Log In</a>
                     {% else %}
+                        {% if user.email == 'admin@test.com' %}
+                        <a class="nav-link" href="/admin">Admin Dashboard</a>
+                        {% endif %}
                     <a class="nav-link" href="/user-maps">My Maps</a>
-
+                        
                     <a class="nav-link" href="/logout">Log Out</a>
                     {% endif %}
+
+
                 </div>
             </div>
         </div>

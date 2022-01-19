@@ -26,10 +26,10 @@ def get_user_by_email(email):
 
     return User.query.filter(User.email == email).first()
 
-def create_map(start_pt, end_pt, user_id):
+def create_map(start_pt, end_pt, mode, user_id):
     """Create and return a new saved map."""
 
-    map = Map(start_pt=start_pt, end_pt=end_pt, user_id=user_id)
+    map = Map(start_pt=start_pt, end_pt=end_pt, mode=mode, user_id=user_id)
 
     db.session.add(map)
     db.session.commit()
@@ -54,7 +54,9 @@ def delete_map(map_id):
     db.session.delete(map)
     db.session.commit()
 
-
+def return_all_stores():
+    """Return all stores"""
+    return Store.query.all()
 
 
 if __name__ == '__main__':
