@@ -27,12 +27,8 @@ class DirectionsHandler {
     constructor(map) {
         this.map = map;
 
-        this.originInput = document.getElementById("start_pt").value;
-        this.destinationInput = document.getElementById("end_pt").value;
-
-        console.log(this.originInput);
-        console.log(this.destinationInput);
-        console.log(this.travelMode);
+        this.originInput = document.getElementById("startpt-id").innerText;
+        this.destinationInput = document.getElementById("endpt-id").innerText;
 
         var originRequest = { 
             query: this.originInput,

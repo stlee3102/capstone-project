@@ -25,13 +25,19 @@
         <form action="/map-action" method="POST">
           <p>
             <i class="fas fa-home"></i>
+            <b>Start Point:</b>
             <input type="text" size="100" id="start_pt" name="start_pt" placeholder="Start Address" required>
           </p>
         
           <p>
-            <i class="fas fa-car"></i>
+            <i class="fas fa-map-marked-alt"></i>
+            <b>End Point:</b>
             <input type="text" size="100" id="end_pt" name="end_pt" placeholder="Destination Address" required>
           </p>
+
+          <i class="fas fa-car"></i>
+          <b>Mode:</b>
+
 
           <div id="mode-selector" class="controls" >
             <input type="radio" name="mode" id="changemode-walking" value="Walking"/>

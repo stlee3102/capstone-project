@@ -20,22 +20,25 @@
         <p>Want to go somewhere else? <a href="/main">Click here to map another trip!</a></p>
 
         <form action="/map-action" method="POST">
-          <p>
-            <i class="fas fa-home"></i>
-            <input type="text" size="100" id="start_pt" name="start_pt" placeholder="Start Address" value="{{start_pt}}" readonly>
-          </p>
-        
-          <p>
-            <i class="fas fa-car"></i>
-            <input type="text" size="100" id="end_pt" name="end_pt" placeholder="Destination Address" value="{{end_pt}}" readonly>
-          </p>
-          Mode:
-          <p id="mode-id">
-            {{mode}}
-          </p>
-
-    
           
+            <i class="fas fa-home"></i>
+
+            <b>Start Point:</b>
+            <p id="startpt-id">
+              {{start_pt}}
+            </p>  
+
+            <i class="fas fa-map-marked-alt"></i>
+            <b>End Point:</b>
+            <p id="endpt-id">
+              {{end_pt}}
+            </p>
+        
+            <i class="fas fa-car"></i>
+            <b>Mode:</b>
+            <p id="mode-id">
+              {{mode}}
+            </p>
           
         </form>
 
