@@ -7,7 +7,6 @@
 
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <link rel="stylesheet" type="text/css" href="/static/css/map-style.css" />
-<script src="/static/js/map.js"></script>
 
 {% endblock %}
 {% block content %}
@@ -31,7 +30,7 @@
         
           <p>
             <i class="fas fa-car"></i>
-            <input type="text" size="100" id="end_pt" name="end_pt" placeholder="Destination Address"  required>
+            <input type="text" size="100" id="end_pt" name="end_pt" placeholder="Destination Address" required>
           </p>
 
           <div id="mode-selector" class="controls" >
@@ -80,4 +79,6 @@
 
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="/static/js/map.js"></script>
+
 {% endblock %}

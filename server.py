@@ -128,18 +128,12 @@ def show_user(user_id):
 
 @app.route("/display-map-action", methods=["GET"])
 def display_map_selection():
-    start_pt = request.json['start_pt']
-    end_pt = request.json.get['end_pt']
-    mode = request.json.get['mode']
+    start_pt = request.args['start_pt']
+    end_pt = request.args['end_pt']
+    mode = request.args['mode']
     user = crud.get_user_by_email(session.get("logged_in_user"))   
 
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    print(start_pt)
-    print(end_pt)
-    print(mode)
-    print(user)
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    return render_template('display-main.html', user=user, MAPS_API_KEY=MAPS_API_KEY, start_pt=start_pt, end_pt=end_pt)
+    return render_template('display-main.html', user=user, MAPS_API_KEY=MAPS_API_KEY, start_pt=start_pt, end_pt=end_pt, mode=mode)
 
 
 @app.route('/map-action', methods=["GET","POST"])

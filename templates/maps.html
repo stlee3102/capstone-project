@@ -24,7 +24,7 @@
 
 {% if list_maps is defined and list_maps|length > 0 %}
 
-<div class="row row-cols-1 row-cols-md-2">
+<div class="row row-cols-1 row-cols-md-2" id = "card-grid">
 
 {% for map in list_maps %}
 
@@ -55,10 +55,9 @@
             Back to Main Page
             </a>
         
-            <a class="btn btn-primary btn-outline-light" href="/display-map-action" method="GET" id="display-btn">
+            <button class="btn btn-primary btn-outline-light" id="display-btn">
             Display Map
-            </a>
-        
+            </button>
                 
             <a class="btn btn-danger btn-outline-light" href="/delete-map/{{map.map_id}}" method="GET">
             Delete
