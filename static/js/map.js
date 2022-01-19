@@ -32,7 +32,7 @@ class AutocompleteDirectionsHandler {
         this.directionsRenderer.setMap(map);  
         
         //Display text directions
-        this.directionsRenderer.setPanel(document.getElementById("sidebar"))
+        this.directionsRenderer.setPanel(document.getElementById("text-directions"));
 
         const originInput = document.getElementById("start_pt");
         const destinationInput = document.getElementById("end_pt");
@@ -90,7 +90,7 @@ class AutocompleteDirectionsHandler {
 
     }
 
-    setupPlaceChangedListener(autocomplete, mode) {
+    setupPlaceChangedListener(autocomplete, ptType) {
         autocomplete.bindTo("bounds", this.map);
         autocomplete.addListener("place_changed", () => {
         const place = autocomplete.getPlace();
@@ -100,7 +100,7 @@ class AutocompleteDirectionsHandler {
             return;
         }
 
-        if (mode === "ORIG") { //setting origin
+        if (ptType === "ORIG") { //setting origin
             this.originPlaceId = place.place_id;
         } else { //setting destination
             this.destinationPlaceId = place.place_id;
