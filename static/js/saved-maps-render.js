@@ -14,6 +14,95 @@ function initMap() {
     });
 
     new DirectionsHandler(map);
+    new WeatherHandler();
+    
+}
+
+class WeatherHandler{
+    constructor(){
+        const weatherLocation = {
+            location: document.getElementById("endpt-id").innerText,
+        };
+
+        fetch('/get-weather', {
+            method: 'POST',
+            body: JSON.stringify(weatherLocation),
+            headers: {
+            'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(responseJson => {
+            console.log(responseJson);
+            
+            
+        let forecast = responseJson;
+        
+        const forecastDiv = document.querySelector("#weather-forecast");
+        forecastDiv.innerHTML = `             
+        <h4>Destination Weather Data:</h4>
+        <p>
+        ${forecast.location.name}, ${forecast.location.region}, ${forecast.location.country}
+        </p>
+        <p>
+        <b>Local Time: </b>${forecast.location.localtime}
+        <br>
+        <b>Weather Data Last Updated: </b>${forecast.current.last_updated}
+        </p>
+
+        <h4>Current Weather:</h4>
+        <p>
+        <img src=${forecast.current.condition.icon}>
+        <br>
+        ${forecast.current.condition.text}
+        <br>
+        <br>
+        <b>Temp: </b>${forecast.current.temp_f}&#8457;
+        <br>
+        <b>Feels Like: </b>${forecast.current.feelslike_f}&#8457;
+        <br>
+        <b>Wind Speed: </b>${forecast.current.gust_mph} mph
+        <br>
+        <b>Humidity: </b>${forecast.current.humidity}
+        <br>
+        <b>Precipitation: </b>${forecast.current.precip_in}&#xA8;
+        
+        </p>
+        `;
+
+        const forecastDays = forecast.forecast.forecastday;
+
+        forecastDiv.insertAdjacentHTML("beforeend", `
+            <h4> Weather Forecast: </h4>`);
+
+        for(let i=0; i <= forecastDays.length; i++)
+        {
+            forecastDiv.insertAdjacentHTML("beforeend", `
+        
+            <h4>${forecastDays[i].date}</h4>
+            <p>
+            <img src=${forecastDays[i].day.condition.icon}>
+            <br>
+            ${forecastDays[i].day.condition.text}
+            <br>
+            <b>Max Temp: </b>${forecastDays[i].day.maxtemp_f}&#8457;
+            <br>
+            <b>Min Temp: </b>${forecastDays[i].day.mintemp_f}&#8457;
+            <br>
+            <b>Max Wind Speed: </b>${forecastDays[i].day.maxwind_mph} mph
+            <br>
+            <b>Chance of Rain: </b>${forecastDays[i].day.daily_chance_of_rain}%
+            <br>
+            <b>Chance of Snow: </b>${forecastDays[i].day.daily_chance_of_snow}%
+            <br>
+            <b>Total Precipitation: </b>${forecastDays[i].day.totalprecip_in}&#xA8;
+            </p>
+            `);
+        }
+        
+        })
+    
+    }
 }
   
 class DirectionsHandler {
@@ -29,7 +118,7 @@ class DirectionsHandler {
 
         this.originInput = document.getElementById("startpt-id").innerText;
         this.destinationInput = document.getElementById("endpt-id").innerText;
-
+        
         var originRequest = { 
             query: this.originInput,
             fields: ["place_id"] 
@@ -188,4 +277,6 @@ class DirectionsHandler {
         }
     });
     }
+
+    
 }
