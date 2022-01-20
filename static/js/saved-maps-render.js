@@ -20,8 +20,21 @@ function initMap() {
 
 class WeatherHandler{
     constructor(){
+
+        let endLocation = document.getElementById("endpt-id").innerText;
+        endLocation = endLocation.split(",");
+        if (endLocation.length <= 4)
+        {
+            endLocation.shift();
+        }
+        else{
+            endLocation.shift();
+            endLocation.shift();
+        }
+        endLocation = endLocation.join(",");
+
         const weatherLocation = {
-            location: document.getElementById("endpt-id").innerText,
+            location: endLocation
         };
 
         fetch('/get-weather', {
@@ -40,23 +53,27 @@ class WeatherHandler{
         
         const forecastDiv = document.querySelector("#weather-forecast");
         forecastDiv.innerHTML = `             
-        <h4>Destination Weather Data:</h4>
-        <p>
+        <center>
+        <h2>Destination Weather Data</h2>
+        <h6><i>
         ${forecast.location.name}, ${forecast.location.region}, ${forecast.location.country}
-        </p>
+        </i></h6>
+        </center>
+
         <p>
         <b>Local Time: </b>${forecast.location.localtime}
         <br>
         <b>Weather Data Last Updated: </b>${forecast.current.last_updated}
         </p>
 
-        <h4>Current Weather:</h4>
+        <center>
+        <h3>Current Weather:</h3>
         <p>
         <img src=${forecast.current.condition.icon}>
         <br>
         ${forecast.current.condition.text}
-        <br>
-        <br>
+        </center>
+        <div id="weather-table">
         <b>Temp: </b>${forecast.current.temp_f}&#8457;
         <br>
         <b>Feels Like: </b>${forecast.current.feelslike_f}&#8457;
@@ -66,25 +83,36 @@ class WeatherHandler{
         <b>Humidity: </b>${forecast.current.humidity}
         <br>
         <b>Precipitation: </b>${forecast.current.precip_in}&#xA8;
-        
+        </div>  
         </p>
         `;
 
         const forecastDays = forecast.forecast.forecastday;
 
         forecastDiv.insertAdjacentHTML("beforeend", `
-            <h4> Weather Forecast: </h4>`);
+            <center>
+            <h3> Weather Forecast: </h3>
+            </center>
+        `);
+        
 
         for(let i=0; i <= forecastDays.length; i++)
         {
+            const weekday = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+            const d = new Date(forecastDays[i].date);
+            let convertedDay = weekday[d.getDay()];
+
             forecastDiv.insertAdjacentHTML("beforeend", `
         
+            <center>
+            <h4>${convertedDay}</h4>
             <h4>${forecastDays[i].date}</h4>
             <p>
             <img src=${forecastDays[i].day.condition.icon}>
             <br>
             ${forecastDays[i].day.condition.text}
-            <br>
+            </center>
+            <div id="weather-table">
             <b>Max Temp: </b>${forecastDays[i].day.maxtemp_f}&#8457;
             <br>
             <b>Min Temp: </b>${forecastDays[i].day.mintemp_f}&#8457;
@@ -96,6 +124,7 @@ class WeatherHandler{
             <b>Chance of Snow: </b>${forecastDays[i].day.daily_chance_of_snow}%
             <br>
             <b>Total Precipitation: </b>${forecastDays[i].day.totalprecip_in}&#xA8;
+            </div>
             </p>
             `);
         }

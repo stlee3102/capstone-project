@@ -69,7 +69,7 @@ def login_user():
 
     if user:
         if password == user.password:
-            flash(f"Successful login! Logged in {user.user_id} {user.email} {user.password}")
+            flash(f"Successful login!")
             session["logged_in_user"] = user.email
 
             if user.email == 'admin@test.com':

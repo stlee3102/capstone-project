@@ -14,7 +14,7 @@
 <div class="container">
   <div class="row">
     <div class="col-7">
-      <div id="welcome">
+      <div id="base-form-info">
         {% if 'logged_in_user' in session %}
         <h2>Hi {{user.fname}}! Where would you like to go?</h2>
         {% else %}
@@ -26,13 +26,13 @@
           <p>
             <i class="fas fa-home"></i>
             <b>Start Point:</b>
-            <input type="text" size="100" id="start_pt" name="start_pt" placeholder="Start Address" required>
+            <input class="form-control" type="text" id="start_pt" name="start_pt" placeholder="Start Address" required>
           </p>
         
           <p>
             <i class="fas fa-map-marked-alt"></i>
             <b>End Point:</b>
-            <input type="text" size="100" id="end_pt" name="end_pt" placeholder="Destination Address" required>
+            <input class="form-control" type="text" id="end_pt" name="end_pt" placeholder="Destination Address" required>
           </p>
 
           <i class="fas fa-car"></i>
@@ -67,9 +67,6 @@
 
       </div>
 
-      <div id="weather-forecast"></div>
-
-
       <div id="google-map"></div>
       <div id="text-directions"></div>
       <div id="route-coordinates"></div>
@@ -79,10 +76,15 @@
      
         <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ MAPS_API_KEY }}&libraries=geometry,places&callback=initMap&v=weekly"></script>
 
-
-
-      
     </div>
+
+
+    <div class="col-4 bg-light d-flex justify-content-center">
+      
+      <div id="weather-forecast"></div>
+    
+    </div>
+
    </div>
 </div>
 
