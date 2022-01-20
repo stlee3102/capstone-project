@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Weather Search{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>Weather Search</h2>
+
+      <form method="GET" action="/weather/search">
+     
+        <div class="row">
+          <label class="form-label" for="search-zip">Zip Code or City Name</label>
+
+          <div class="col-8">
+ 
+          <input
+            id="search-zip"
+            class="form-control"
+            type="text"
+            name="q"
+          >
+          </div>
+        </div>
+        <p>
+        <div class="row">
+          <label class="form-label" for="search-radius">Future Forecast Days (Up to 3)</label>
+ 
+          <div class="col-8">
+              <input
+                id="days"
+                class="form-control"
+                type="number"
+                name="days"
+              >
+            </div>
+            </div>
+          </p>
+        <div class="row mt-4">
+          <div class="col-3">
+            <input type="submit" value="Get Forecast" class="btn btn-primary">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

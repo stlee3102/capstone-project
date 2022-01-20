@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Weather Result{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        <a href="/weather" class="lead backlink">
+          Go back to the search form
+        </a>
+      </div>
+    </div>
+
+    <h4>Location:</h4>
+    <p>
+    {{location.name}}, {{location.region}}, {{location.country}}
+    </p>
+    
+
+    <h4>Current Weather:</h4>
+    <p>
+    <img src={{current.condition.icon}}>
+    <br>
+    {{current.condition.text}}
+    <br>
+    <b>Temp: </b>{{current.temp_f}}&#8457; 
+    <br>
+    <b>Local Time: </b>{{location.localtime}}
+    </p>
+    
+
+    <h4>Forecast:</h4>
+    {% for forecastday in forecastdays %}
+    <p>
+    <h5>{{forecastday.date}}</h5>
+    <p>
+    <img src="{{forecastday.day.condition.icon}}"">
+    <br>
+    {{forecastday.day.condition.text}}
+    <br>
+    <b>Max Temp: </b>{{forecastday.day.maxtemp_f}}&#8457;
+    <br>
+    <b>Min Temp: </b>{{forecastday.day.mintemp_f}}&#8457; 
+    <br>
+    <b>Max Wind Speed: </b>{{forecastday.day.maxwind_mph}} mph
+    <br>
+    <b>Chance of Rain: </b>{{forecastday.day.daily_chance_of_rain}}%
+    <br>
+    <b>Chance of Snow: </b>{{forecastday.day.daily_chance_of_snow}}%
+    <br>
+    <b>Total Precipitation: </b>{{forecastday.day.totalprecip_in}}&#xA8;
+    </p>
+    {% endfor %}
+    <div id="results-as-json">
+      <h2>Results as JSON</h2>
+      <pre>{{ pformat(data) }}</pre>
+    </div>
+
+
+
+
+{% endblock %}

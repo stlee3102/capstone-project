@@ -123,15 +123,15 @@ class AutocompleteDirectionsHandler {
                 ${forecast.current.condition.text}
                 <br>
                 <br>
-                <b>Fahrenheit: </b>${forecast.current.temp_f}
+                <b>Temp: </b>${forecast.current.temp_f}&#8457;
                 <br>
-                <b>Feels Like: </b>${forecast.current.feelslike_f}
+                <b>Feels Like: </b>${forecast.current.feelslike_f}&#8457;
                 <br>
-                <b>Wind Speed mph: </b>${forecast.current.gust_mph}
+                <b>Wind Speed: </b>${forecast.current.gust_mph} mph
                 <br>
                 <b>Humidity: </b>${forecast.current.humidity}
                 <br>
-                <b>Precipitation: </b>${forecast.current.precip_in}
+                <b>Precipitation: </b>${forecast.current.precip_in}&#xA8;
                 
                 </p>
                 `;
@@ -151,17 +151,17 @@ class AutocompleteDirectionsHandler {
                     <br>
                     ${forecastDays[i].day.condition.text}
                     <br>
-                    <b>Max Temp Fahrenheit: </b>${forecastDays[i].day.maxtemp_f}
+                    <b>Max Temp: </b>${forecastDays[i].day.maxtemp_f}&#8457;
                     <br>
-                    <b>Min Temp Fahrenheit: </b>${forecastDays[i].day.mintemp_f}
+                    <b>Min Temp: </b>${forecastDays[i].day.mintemp_f}&#8457;
                     <br>
-                    <b>Max Wind Speed mph: </b>${forecastDays[i].day.maxwind_mph}
+                    <b>Max Wind Speed: </b>${forecastDays[i].day.maxwind_mph} mph
                     <br>
-                    <b>Chance of Rain: </b>${forecastDays[i].day.daily_chance_of_rain}
+                    <b>Chance of Rain: </b>${forecastDays[i].day.daily_chance_of_rain}%
                     <br>
-                    <b>Chance of Snow: </b>${forecastDays[i].day.daily_chance_of_snow}
+                    <b>Chance of Snow: </b>${forecastDays[i].day.daily_chance_of_snow}%
                     <br>
-                    <b>Total Precipitation Inches: </b>${forecastDays[i].day.totalprecip_in}
+                    <b>Total Precipitation: </b>${forecastDays[i].day.totalprecip_in}&#xA8;
                     </p>
                     `);
                 }
