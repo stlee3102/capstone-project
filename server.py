@@ -1,12 +1,13 @@
-from flask import (Flask, render_template, request, flash, session, redirect, url_for, jsonify)
+from flask import Flask, render_template, request, flash, session, redirect, url_for, jsonify
 from model import connect_to_db
 import crud
 from flask_sqlalchemy import SQLAlchemy
-
+from pprint import pformat
 from jinja2 import StrictUndefined
 
 import os
 import polyline
+import requests
 
 app = Flask(__name__)
 app.secret_key = 'dev'
@@ -14,6 +15,11 @@ app.jinja_env.undefined = StrictUndefined
 
 
 MAPS_API_KEY = os.environ['GOOGLE_MAPS_KEY']
+WEATHER_API_KEY = os.environ['WEATHER_KEY']
+
+
+
+
 
 @app.route('/')
 def index():
@@ -145,6 +151,9 @@ def map_selection():
         mode = request.form.get("mode")
         crud.create_map(start_pt, end_pt, mode, user.user_id)
         return redirect('/user-maps')
+    if request.form['plan-trip-btn'] == 'Plan My Trip':
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print("HI THERE")
 
 
 @app.route('/user-maps')
@@ -206,6 +215,65 @@ def all_store_info():
 
     return jsonify({'store_info':store_dict})
 
+@app.route("/get-weather", methods=["POST"])
+def get_weather():
+    location = request.json['location']
+
+    url = 'http://api.weatherapi.com/v1/forecast.json'
+    payload = {'key': WEATHER_API_KEY}
+
+    payload['q'] = location
+    payload['days'] = 3
+
+    res = requests.get(url, params=payload)
+
+    data = res.json()
+
+    print("!!!!!!!!!!!!!!!!!!!!!!!!")
+    print(data)
+
+    return data  
+    
+
+
+@app.route('/weather')
+def show_weather_form():
+    """Show weather search form"""
+
+    user = crud.get_user_by_email(session.get("logged_in_user"))
+
+
+    return render_template('search-form.html', user=user)
+
+
+@app.route('/weather/search')
+def find_weather():
+    """Search weather at destination"""
+
+    q = request.args.get('q', '')
+    days = request.args.get('days', '')
+
+
+    url = 'http://api.weatherapi.com/v1/forecast.json'
+    payload = {'key': WEATHER_API_KEY}
+
+    payload['q'] = q
+    payload['days'] = days
+
+    res = requests.get(url, params=payload)
+
+    data = res.json()
+
+    location = data['location']
+    current = data['current']
+    forecastdays = data['forecast']['forecastday']
+
+    user = crud.get_user_by_email(session.get("logged_in_user"))
+
+
+    return render_template('search-results.html',
+                            pformat=pformat, forecastdays=forecastdays,
+                           data=data, user=user, location=location, current=current)
 
 
 if __name__ == "__main__":
