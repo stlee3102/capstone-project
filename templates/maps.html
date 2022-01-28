@@ -2,61 +2,66 @@
 
 {% block title %}Map Your Roadtrip!{% endblock %}
 
+
 {% block head %}
 
-
+<link rel="stylesheet" type="text/css" href="/static/css/saved-maps.css" />
 
 {% endblock %}
 
 
 {% block content %}
-<br>
 
+<header>
+
+    
 {% if 'logged_in_user' in session and user.email != 'admin@test.com'%}
 
-<h3>{{user.fname}}'s Saved Maps:</h3>
+<h2 id="image-text">{{user.fname}}'s Saved Maps</h3>
 
 {% else %}
 
-<h3> Saved Maps: </h3> 
+<h2 id="image-text"> Saved Maps </h3> 
 
 {% endif %}
 
+</header>
+
+<br>
+
 {% if list_maps is defined and list_maps|length > 0 %}
 
-<div class="row row-cols-1 row-cols-md-2" id = "card-grid">
+<div class="row row-cols-1 row-cols-md-2 container mx-auto" id = "card-grid">
 
 {% for map in list_maps %}
 
 
 <div class="col mb-4">
-    <div class="card">
-
-    <div class="card-body">
+    <div class="card bg-light">
+    <div class="card-header">
+        <center>
         <h3>Map # {{loop.index}}</h3>
-        <ul>
         {% if 'logged_in_user' in session and user.email == 'admin@test.com'%}
-        
-        <li>First Name: {{map.user.fname}}</li>
-        <li>Last Name: {{map.user.lname}}</li>    
-        
+        <b><i>{{map.user.fname}} {{map.user.lname}}</i></b>
         {% endif %}
-        
+        </center>
+    </div>
+
+    <div class="card-body mx-auto">
+                
         <h5>Start Pt:</h5>
         <p id="start-pt-id">{{map.start_pt}}</p>
         <h5>End Pt:</h5> 
         <p id="end-pt-id">{{map.end_pt}}</p>
         <h5>Transportation Mode:</h5>
         <p id="mode-id">{{map.mode}}</p>
-        </ul>
+        
 
         <p>
             <button class="btn btn-primary btn-outline-light" id="display-btn">
             Display Map
             </button>
                 
-            {% if 'logged_in_user' in session and user.email != 'admin@test.com'%}
-
             <a class="btn btn-info btn-outline-light" href="/main">
                 Back to Main Page
                 </a>    
@@ -64,7 +69,6 @@
             <a class="btn btn-danger btn-outline-light" href="/delete-map/{{map.map_id}}" method="GET">
             Delete
             </a>
-            {% endif %}
         
         </p>
 

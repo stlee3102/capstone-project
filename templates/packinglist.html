@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+
+{% block title %}Packing List{% endblock %}
+
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href="/static/css/packing-list-style.css" />
+
+
+{% endblock %}
+
+{% block content %}
+<br>
+<!-- Add and Delete Categories -->
+
+{% if 'logged_in_user' in session and user.email == 'admin@test.com'%}
+
+<div class="row container mx-auto" id="category-container">
+  <div class="col-6 d-flex justify-content-center">
+  
+  <form method="GET" action="/add-category">
+       
+    <div class="row">
+      <label class="form-label" for="cat-input"><b>Category To Add:</b></label>
+      <div class="col-11">      
+        <input
+          id="category-id"
+          class="form-control"
+          type="text"
+          name="category-name"
+        >
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-3">
+          <input type="submit" value="Add Category" class="btn btn-primary">
+        </div>
+      </div>
+  </form>
+
+  </div>
+
+    <div class="col-6 d-flex justify-content-left">
+    
+    <form method="GET" action="/delete-category">
+         
+          <label class="form-label" for="cat-input"><b>Category To Delete:</b></label>
+                
+
+            <select class="form-select" name="category-name" id="cat-id">
+              {% for category in categories %}
+
+              <option value={{category.category_name}}>{{category.category_name}}</option>
+              {% endfor %}
+          </select>
+        
+          
+       
+  
+        <div class="row mt-4">
+          <div class="col-3">
+            <input type="submit" value="Delete Category" class="btn btn-danger">
+          </div>
+        </div>
+    </form>
+  
+    </div>
+    </div>
+    
+
+
+<br>
+<hr>
+<br>
+{% endif %}
+
+
+<!-- ADD ITEMS TO PACKING LIST -->
+<div class="row container mx-auto">
+<div class="col-6 d-flex justify-content-center">
+
+<form method="GET" action="/add-item">
+     
+    <div class="row">
+      <label class="form-label" for="item-input"><b>Item To Add:</b></label>
+      <div class="col-12">      
+      <input
+        id="item-id"
+        class="form-control"
+        type="text"
+        name="item-name"
+        required
+      >
+      </div>
+    </div>
+    <br>
+    <div class="row">
+        <label class="form-label" for="category-select"><b>Choose a Category:</b></label>
+        <div class="col-12">
+
+        <select class="col-12 form-select" name="category-name" id="cat-id">
+            {% for category in categories %}
+            <option value={{category.category_name}}>{{category.category_name}}</option>
+            {% endfor %}
+        </select>
+
+        </div>
+    </div>  
+    <br>
+    <div class="row">
+        <label class="form-label" for="quantity-select"><b>Quantity:</b></label>
+        <div class="col-12">
+
+        <select class="col-12 form-select" name="quantity" id="quantity">
+            {% for i in range(1,21) %}
+            <option value={{i}}>{{i}}</option>
+            {% endfor %}
+        </select>
+
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <label class="form-label" for="packed-status"><b>Packed?</b></label>
+        <div class="col-12">
+        <select class="col-12 form-select" name="status" id="status">
+            <option value="false">No Not Packed Yet!</option>
+            <option value="true">Yes Packed Already!</option>
+        </select>
+        </div>
+    </div>
+
+
+    <div class="row mt-4">
+      <div class="col-3">
+        <input type="submit" value="Add Item" class="btn btn-primary">
+      </div>
+    </div>
+</form>
+
+</div>
+<div class="col-6">
+<img src="/static/img/luggage.jpg" height="400">
+</div>
+</div>
+</div>
+
+<br>
+<hr>
+<br>
+
+
+
+<!-- SHOW PACKING LIST -->
+<div class="container">
+{% if 'logged_in_user' in session and user.email != 'admin@test.com'%}
+
+<h3>{{user.fname}}'s Packing List:</h3>
+
+{% else %}
+
+<h3> Saved Packing Lists: </h3> 
+
+{% endif %}
+
+
+
+{% if packinglist is defined and packinglist|length > 0 %}
+
+<table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        {% if 'logged_in_user' in session and user.email == 'admin@test.com'%}
+        <th scope="col">Item ID</th>
+        {% endif %}
+        <th scope="col">Category</th>
+        <th scope="col">Item</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Packed?</th>
+        
+        {% if 'logged_in_user' in session and user.email == 'admin@test.com'%}
+        <th>
+        Owner
+        </th>
+        {% endif %}
+
+        <th scope="col">Delete Item</th>
+      </tr>
+    </thead>
+    <tbody>
+
+  {% for item in packinglist %}
+    <tr>
+    {% if 'logged_in_user' in session and user.email == 'admin@test.com'%}
+    <td>{{item.item_id}}</td>
+    {% endif %}
+    <td>{{item.category.category_name}}</td>
+    <td>{{item.item_name}}</td>
+    <td>{{item.quantity}}</td>
+    <td>
+        <label class="checkbox-container">
+            {% if item.status == True %}
+                <input type="checkbox" class="myCheck" value={{item.item_id}} checked="checked" >
+            {% else %}
+                <input type="checkbox" class="myCheck"  value={{item.item_id}} >
+            {% endif %}      
+        </label>
+    </td>
+
+    {% if 'logged_in_user' in session and user.email == 'admin@test.com'%}
+    <td>
+    {{item.user.fname}} {{item.user.lname}}
+    </td>
+    {% endif %}
+
+    <td>
+        <a class="btn btn-danger btn-outline-light" href="/delete-item/{{item.item_id}}" method="GET">
+            Delete
+            </a>
+    </td>
+    </tr>
+  {% endfor %}
+</tbody>
+</table>
+
+{% else %}
+
+<p>You have no saved packing lists.</p>
+
+{% endif %}
+
+
+
+<a class="btn btn-info btn-outline-light" href="/main">
+    Back to Main Page
+</a>    
+</div>
+<br>
+
+<script src="/static/js/packing-list.js"></script>
+
+
+{% endblock %}

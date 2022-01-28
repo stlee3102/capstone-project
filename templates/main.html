@@ -13,7 +13,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-7">
+    <div id="map-container" class="col-7 bg-white" style="--bs-bg-opacity: .75;">
       <div id="base-form-info">
         {% if 'logged_in_user' in session %}
         <h2>Hi {{user.fname}}! Where would you like to go?</h2>
@@ -57,19 +57,19 @@
     
           
             {% if 'logged_in_user' in session %}
-            <input class="btn btn-info btn-outline-light" type="submit" value="Save My Trip" name="trip-button">
+            <input class="btn btn-info" type="submit" value="Save My Trip" name="trip-button">
             {% endif %}
           
         </form>
-        <input class="btn btn-primary btn-outline-light" type="submit" id="plan-trip-btn" value="Plan My Trip" name="trip-button">
+        <input class="btn btn-primary" type="submit" id="plan-trip-btn" value="Plan My Trip" name="trip-button">
         <br>
         <br>
 
       </div>
 
-      <div id="google-map"></div>
-      <div id="text-directions"></div>
-      <div id="route-coordinates"></div>
+      <div id="google-map" class="bg-light" style="--bs-bg-opacity: .75;"></div>
+      <div id="text-directions" class="bg-light" style="--bs-bg-opacity: .75;"></div>
+      <div id="route-coordinates" class="bg-light" style="--bs-bg-opacity: .75;"></div>
 
 
         <!-- Load Google Maps API -->
@@ -79,8 +79,8 @@
     </div>
 
 
-    <div class="col-4 bg-light d-flex justify-content-center">
-      
+    <div class="col-4 d-flex justify-content-center bg-light" style="--bs-bg-opacity: .75;">
+      <img id="weather-placeholder" src="/static/img/weather-placeholder.jpg" width="440">
       <div id="weather-forecast"></div>
     
     </div>

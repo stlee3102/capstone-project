@@ -18,9 +18,6 @@ MAPS_API_KEY = os.environ['GOOGLE_MAPS_KEY']
 WEATHER_API_KEY = os.environ['WEATHER_KEY']
 
 
-
-
-
 @app.route('/')
 def index():
     """Show index."""
@@ -47,21 +44,14 @@ def show_registration():
 
 @app.route('/login')
 def show_login():
-    """Show login form."""
+    """Show login form"""
 
     return render_template('login.html')
 
 
-@app.route('/admin')
-def show_admin():
-    """Show admin dashboard."""
-    user = crud.get_user_by_email(session.get("logged_in_user"))
-
-    return render_template('admin.html', user=user)
-
-
 @app.route('/login', methods=["POST"])
 def login_user():
+    """Login User"""
 
     email = request.form.get("email")
     password = request.form.get("password")
@@ -69,18 +59,17 @@ def login_user():
 
     if user:
         if password == user.password:
-            flash(f"Successful login!")
+            # flash(f"Successful login!")
             session["logged_in_user"] = user.email
 
             if user.email == 'admin@test.com':
                 return render_template('admin.html', user=user)
             else:
                 return redirect(f'/main')
-
         else:
-            flash("incorrect password, try again")
+            flash("Incorrect password, try again")
     else:
-        flash("user not registered")
+        flash("User not registered")
 
     return render_template('login.html')
 
@@ -89,8 +78,16 @@ def login_user():
 def process_logout():
     """Logout User and End Session"""
     session.pop("logged_in_user")
-    flash("Logged out")
+    # flash("Logged out")
     return redirect('/main')
+
+
+@app.route('/admin')
+def show_admin():
+    """Show admin dashboard."""
+    user = crud.get_user_by_email(session.get("logged_in_user"))
+
+    return render_template('admin.html', user=user)
 
 
 @app.route('/users')
@@ -120,7 +117,7 @@ def register_user():
         #automatically log in new user
         user = crud.get_user_by_email(email)
         session["logged_in_user"] = user.email
-        flash("Account successfully registered")
+        # flash("Account successfully registered")
     return redirect(f"/main")
 
 
@@ -151,9 +148,6 @@ def map_selection():
         mode = request.form.get("mode")
         crud.create_map(start_pt, end_pt, mode, user.user_id)
         return redirect('/user-maps')
-    if request.form['plan-trip-btn'] == 'Plan My Trip':
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        print("HI THERE")
 
 
 @app.route('/user-maps')
@@ -229,9 +223,6 @@ def get_weather():
 
     data = res.json()
 
-    print("!!!!!!!!!!!!!!!!!!!!!!!!")
-    print(data)
-
     return data  
     
 
@@ -248,7 +239,7 @@ def show_weather_form():
 
 @app.route('/weather/search')
 def find_weather():
-    """Search weather at destination"""
+    """Search Weather API for Admin Dashboard"""
 
     q = request.args.get('q', '')
     days = request.args.get('days', '')
@@ -276,10 +267,92 @@ def find_weather():
                            data=data, user=user, location=location, current=current)
 
 
+@app.route('/packing-list')
+def show_packing_list():
+    """Show a user's packing list"""
+
+    user = crud.get_user_by_email(session.get("logged_in_user"))
+    packinglist = crud.get_packing_list_by_user_id(user.user_id)
+    categories = crud.get_categories()
+
+    return render_template('packinglist.html', user=user, packinglist=packinglist, categories=categories)
+
+
+@app.route('/all-packing-lists')
+def show_all_packing_lists():
+    """Show all packing lists"""
+
+    user = crud.get_user_by_email(session.get("logged_in_user"))
+
+    packinglist = crud.return_all_packing_lists()
+    categories = crud.get_categories()
+
+    return render_template('packinglist.html', user=user, packinglist=packinglist, categories=categories)
+
+
+@app.route('/add-category')
+def add_category():
+    """Add Category to Packing List"""
+
+    category_name = request.args.get('category-name', '')
+
+    crud.add_category(category_name=category_name)
+
+    return redirect('/packing-list')
+
+
+@app.route('/delete-category')
+def delete_category():
+    """Delete Category to Packing List"""
+
+    category_name = request.args.get('category-name', '')
+
+    crud.delete_category(category_name=category_name)
+
+    return redirect('/packing-list')
+
+
+@app.route('/add-item')
+def add_item():
+    """Add Item to Packing List"""
+
+    item_name = request.args.get('item-name', '')
+    category_name = request.args.get('category-name', '')
+    quantity = request.args.get('quantity', '')
+    status = request.args.get('status', '') in ('true', 'True', 'TRUE') #boolean check of status string
+
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    print(item_name)
+    print(category_name)
+    print(quantity)
+    print(status)
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
+    user = crud.get_user_by_email(session.get("logged_in_user"))
+
+    crud.add_item(user_id=user.user_id, item_name=item_name, category_name=category_name, quantity=quantity, status=status)
+
+    return redirect('/packing-list')
+
+@app.route('/delete-item/<item_id>', methods=["GET"])
+def delete_item(item_id):
+    """"Delete Item from Packing List"""
+
+    crud.delete_item(item_id)
+
+    return redirect('/packing-list')
+
+@app.route('/change-item-status/<item_id>/<status>')
+def change_item_status(item_id, status):
+    """Change Status of Item in Packing List"""
+
+    crud.change_item_status(item_id=item_id, status=status)
+    
+    return redirect('/packing-list')
+
+
+
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
     connect_to_db(app)
     app.run(host="0.0.0.0", debug=True)
-
-
-    

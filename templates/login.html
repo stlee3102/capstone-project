@@ -1,27 +1,48 @@
 {% extends 'base.html' %}
 
-{% block title %}Map Your Roadtrip!{% endblock %}
+{% block title %}Login{% endblock %}
+
+
+{% block head %}
+
+
+<link rel="stylesheet" type="text/css" href="/static/css/login.css" />
+
+
+{% endblock %}
 
 {% block content %}
 
+<div class="split left">
+  <div class="centered">
+    <h1>Welcome Back</h1>
+    <p><i>Your Journey Awaits</i></p>
+  </div>
+</div>
 
-<h2>Log In</h2>
-<form action="/login" method="POST">
-    
-  <p>
-    Email <input type="text" name="email">
-  </p>
+<div class="split right">
+  <div class="centered">
+    <form action="/login" method="POST">
+      <div class="row">
+        <label class="form-label"><b>Email</b></label>
+        <input type="text" class="form-control" name="email" required>
+      </div>
+      <br>
+      <div class="row">
+        <label class="form-label"><b>Password</b></label>
+        <input type="password" class="form-control" name="password" required>
+      </div>
+      <br>
+      <div class="row">
+        <input type="submit" class="submit btn btn-dark" value="Submit">
+      </div>
+    </form>
 
-  <p>
-    Password <input type="password" name="password">
-  </p>
+    <br>
+    <a href="/register">Don't have an account? Click here to register a new account.</a>
 
-  <p>
-    <input type="submit">
-  </p>
-</form>
-
-<a href="/register">Don't have an account? Click here to register a new account.</a>
+  </div>
+</div>
 
 
 {% endblock %}

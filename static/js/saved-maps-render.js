@@ -46,25 +46,26 @@ class WeatherHandler{
         })
         .then(response => response.json())
         .then(responseJson => {
-            console.log(responseJson);
             
             
         let forecast = responseJson;
         
         const forecastDiv = document.querySelector("#weather-forecast");
         forecastDiv.innerHTML = `             
+        <div id="destination-information">
         <center>
         <h2>Destination Weather Data</h2>
         <h6><i>
-        ${forecast.location.name}, ${forecast.location.region}, ${forecast.location.country}
+        ${forecast.location.name}, ${forecast.location.region}<br>${forecast.location.country}
         </i></h6>
-        </center>
 
         <p>
-        <b>Local Time: </b>${forecast.location.localtime}
+        <b>Local Time</b><br>${forecast.location.localtime}
         <br>
-        <b>Weather Data Last Updated: </b>${forecast.current.last_updated}
+        <b>Weather Data Last Updated</b><br>${forecast.current.last_updated}
         </p>
+        </div>
+        </center>
 
         <center>
         <h3>Current Weather:</h3>

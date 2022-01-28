@@ -1,0 +1,44 @@
+/* Split screen in half */
+.split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 6%;
+    overflow-x: hidden;  
+  }
+  
+  /* Left side */
+  .left {
+    left: 0;
+    background-image: url("/static/img/forest-road.jpg");
+    background-size: cover;
+    color:white;
+  }
+  
+  /* Right side */
+  .right {
+    right: 0;
+    background-color: gainsboro;
+  }
+  
+  /* Center content in each split horizontally and vertically */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  
+  h1{
+    font-size: 60px;
+    text-shadow: 2px 2px gray;
+
+  }
+
+  p{
+    font-size: 30px;
+    text-shadow: 2px 2px gray;
+  }
