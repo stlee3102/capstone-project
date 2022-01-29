@@ -19,34 +19,35 @@ Libraries: Faker, Toastify<br/>
 ## <a name="features"></a>Features
 
 The initial landing page features a JavaScript scroll animation with font opacity and font size transitions. 
-<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot1.png" width="400">
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot1.png" width="900">
 
 The main homepage displays an interface for the user to select the origin and destination, based on autocomplete options, and the preferred mode of transportation.
-![]()
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot2.png" width="900">
 
 When the user clicks "Plan My Trip!", the app displays route timing, directions, store locations along the route, and destination weather data:
-![](IMG1)
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot3.png" width="900">
 
 Store location pins in the map can be clicked to display store information:
-![]()
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot3a.png" width="900">
 
-The main homepage after user account login has a "Save My Trip" button:
-![]()
+The main homepage after user account login welcomes the user by name and has a "Save My Trip" button:
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot3b.png" width="900">
 
 User can register for an account to save maps and packing list information:
-![](IMG2)
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot4.png" width="900">
 
 If a user has an account already, the user can log in to the account:
-![](IMG3)
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot5.png" width="900">
 
 User maps can be saved, redisplayed, and deleted:
-![](IMG4)
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot6.png" width="900">
 
 Maps can be re-displayed without having to re-enter origin and destination information:
-![]()
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot7.png" width="900">
 
 User can save item data in a packing list (item name, category, and quantity), check off whether the item has been packed, and delete items from their packing list:
-![](IMG5)
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot8.png" width="900">
+
 
 Admin can:
 * View all user data
