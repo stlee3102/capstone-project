@@ -1,9 +1,9 @@
 # Roadtrippr
-Roadtrippr helps you plan your next road trip by (1) displaying direction timing and route data, whether you plan to walk, bike, drive, or take public transportation, (2) providing store information for all Walmart stores on route so you can easily restock on your supplies, (3) showing you current and forecasted weather forecast data for your destination so you can plan your trip, and (4) enabling you to plan and keep track of your packing list! 
+Roadtrippr helps you plan your next road trip by (1) displaying direction timing and route data, whether you plan to walk, bike, drive, or take public transportation, (2) providing store information for all Walmart stores on route so you can easily restock supplies, (3) showing you current and forecasted weather data for your destination, and (4) enabling you to plan and keep track of your packing list! 
 
-Using Google Maps JavasScript API, Google Places API, Google Directions API, and Weather API, Roadtrippr provides autocomplete, route maps, store information, and weather data. In their accounts, you have the option to save and delete maps, add and delete packing list items, and check off the status of whether an item has been packed yet, all of which are stored in a database. 
+Using Google Maps JavaScript API, Google Places API, Google Directions API, and Weather API, Roadtrippr provides autocomplete origin and destination addresses, route maps, store information, and weather data. In your account, you have the option to save and delete maps, add and delete packing list items, and check off the status of whether an item has been packed yet, all of which are stored in a database. 
 
-The application also uses [Faker library](https://faker.readthedocs.io/en/master/) to fill the user accounts with an initial set of imaginary users, the [Polyline API](https://pypi.org/project/polyline/#:~:text=Decoding,setting%20geojson%3DTrue) to decode coordinates from the encoded string that Google Maps API returns for route data. [Toastify](https://github.com/apvarun/toastify-js) is used to style the Google Maps error notification. 
+The application also uses [Faker library](https://faker.readthedocs.io/en/master/) to assist in seeding user accounts with an initial set of imaginary users and [Polyline API](https://pypi.org/project/polyline/#:~:text=Decoding,setting%20geojson%3DTrue) to decode coordinates from the encoded string that Google Maps API returns for route data. In addition, [Toastify](https://github.com/apvarun/toastify-js) is used to style the Google Maps error notification. 
 
 ## Contents
 * [Tech Stack](#technologies)
@@ -13,7 +13,7 @@ The application also uses [Faker library](https://faker.readthedocs.io/en/master
 ## <a name="technologies"></a>Tech Stack
 Backend: Python, Flask, PostgreSQL, SQLAlchemy<br/>
 Frontend: JavaScript, AJAX, Jinja2, Bootstrap, HTML5, CSS3<br/>
-APIs: Google Places, Google Maps JavaScript, Weather, Polyline<br/>
+APIs: Google Places, Google Maps JavaScript, Google Directions, Weather, Polyline<br/>
 Libraries: Faker, Toastify<br/>
 
 ## <a name="features"></a>Features
