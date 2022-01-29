@@ -19,7 +19,7 @@ Libraries: Faker, Toastify<br/>
 ## <a name="features"></a>Features
 
 The initial landing page features a JavaScript scroll animation with font opacity and font size transitions. 
-![](https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot1.png =x400)
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot1.png" width="400">
 
 The main homepage displays an interface for the user to select the origin and destination, based on autocomplete options, and the preferred mode of transportation.
 ![]()
