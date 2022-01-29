@@ -197,10 +197,6 @@ class AutocompleteDirectionsHandler {
                     `);
                 }
 
-
-
-
-
             });
         });
 
@@ -245,8 +241,11 @@ class AutocompleteDirectionsHandler {
                 me.directionsRenderer.setDirections(response);
 
                 const data = {
-                    polyline: response.routes[0].overview_polyline,
+                    polyline: response.routes[0].overview_polyline, //returns encoded string from Google API
                 };
+                console.log("!!!!!!!!!!!!!!!!!!!!!!!DATA!!!!!!!!!!!!!!!!!");
+                console.log(data);
+                console.log("!!!!!!!!!!!!!!!!!!!!!!!DATA!!!!!!!!!!!!!!!!!");
             
                 fetch('/decode-polyline', {
                     method: 'POST',
@@ -258,7 +257,7 @@ class AutocompleteDirectionsHandler {
                 .then(response => response.json())
                 .then(responseJson => {                    
                     waypoints = responseJson.coord; //all route coordinates assigned to waypoints
-
+                                                    //response is list of coordinate lists 
                 });           
 
                 fetch('/store-info')
