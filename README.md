@@ -10,7 +10,7 @@ The application also uses [Faker library](https://faker.readthedocs.io/en/master
 * [Features](#features)
 * [Installation](#install)
 
-## <a name="technologies"></a>Technologies
+## <a name="technologies"></a>Tech Stack
 Backend: Python, Flask, PostgreSQL, SQLAlchemy<br/>
 Frontend: JavaScript, AJAX, Jinja2, Bootstrap, HTML5, CSS3<br/>
 APIs: Google Places, Google Maps JavaScript, Weather, Polyline<br/>
@@ -18,19 +18,34 @@ Libraries: Faker, Toastify<br/>
 
 ## <a name="features"></a>Features
 
-User choose their origin and destination, based on autocomplete options, and mode of transportation to see route timing, directions, information about store locations along the route, and destination weather data:
+The initial landing page features a JavaScript scroll animation with font opacity and font size transitions. 
+![](https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot1.png =x400)
+
+The main homepage displays an interface for the user to select the origin and destination, based on autocomplete options, and the preferred mode of transportation.
+![]()
+
+When the user clicks "Plan My Trip!", the app displays route timing, directions, store locations along the route, and destination weather data:
 ![](IMG1)
 
-Users can register for an account to save maps and packing list information:
+Store location pins in the map can be clicked to display store information:
+![]()
+
+The main homepage after user account login has a "Save My Trip" button:
+![]()
+
+User can register for an account to save maps and packing list information:
 ![](IMG2)
 
 If a user has an account already, the user can log in to the account:
 ![](IMG3)
 
-User maps can be saved and re-displayed without having to re-enter origin and destination information. Saved maps can also be deleted:
+User maps can be saved, redisplayed, and deleted:
 ![](IMG4)
 
-Users can save item data in a packing list (item name, category, and quantity), check off whether the item has been packed, and delete items from their packing list:
+Maps can be re-displayed without having to re-enter origin and destination information:
+![]()
+
+User can save item data in a packing list (item name, category, and quantity), check off whether the item has been packed, and delete items from their packing list:
 ![](IMG5)
 
 Admin can:
