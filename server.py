@@ -5,9 +5,9 @@ from flask_sqlalchemy import SQLAlchemy
 from pprint import pformat
 from jinja2 import StrictUndefined
 
-import os
-import polyline
-import requests
+import os # for API keys and password hashing
+import polyline # for decoding Google Maps encoded route coordinate string
+import requests # for API
 
 app = Flask(__name__)
 app.secret_key = 'dev'
@@ -16,6 +16,7 @@ app.jinja_env.undefined = StrictUndefined
 
 MAPS_API_KEY = os.environ['GOOGLE_MAPS_KEY']
 WEATHER_API_KEY = os.environ['WEATHER_KEY']
+
 
 
 @app.route('/')

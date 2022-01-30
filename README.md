@@ -19,7 +19,7 @@ Libraries: Faker, Toastify<br/>
 ## <a name="features"></a>Features
 
 The initial landing page features a JavaScript scroll animation with font opacity and font size transitions. 
-<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot1.png" width="900">
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot1.gif" width="900">
 
 The main homepage displays an interface for the user to select the origin and destination, based on autocomplete options, and the preferred mode of transportation.
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot2.png" width="900">
@@ -89,8 +89,8 @@ Sign up to use the [Weather API](https://www.weatherapi.com/docs/) and the [Goog
 Save your API keys in a file called <kbd>secrets.sh</kbd> using this format:
 
 ```
-export GOOGLE_API_KEY="YOUR_KEY_HERE"
-export WEATHER_API_KEY="YOUR_KEY_HERE"
+export GOOGLE_MAPS_KEY="YOUR_KEY_HERE"
+export WEATHER_KEY="YOUR_KEY_HERE"
 ```
 
 Source your keys from your secrets.sh file into your virtual environment:
@@ -103,7 +103,9 @@ Set up and seed 🌱 the database with sample data:
 
 ```
 createdb mapdb
-python model.py
+python -i model.py
+db.create_all()
+quit()
 python user_map_db_filler.py
 python store_db_filler.py
 python packing_list_filler.py
