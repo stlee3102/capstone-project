@@ -3,6 +3,8 @@ Roadtrippr helps you plan your next road trip by (1) displaying direction timing
 
 Using Google Maps JavaScript API, Google Places API, Google Directions API, and Weather API, Roadtrippr provides autocomplete origin and destination addresses, route maps, store information, and weather data. In your account, you have the option to save and delete maps, add and delete packing list items, and check off the status of whether an item has been packed yet, all of which are stored in a database. 
 
+All passwords are salted with a randomly generated 32 byte salt and hashed 100,000 times using the SHA-256 algorithm from [hashlib](https://docs.python.org/3/library/hashlib.html). A 128 byte key is generated and stored in the database along with the salt in place of the password.
+
 The application also uses [Faker library](https://faker.readthedocs.io/en/master/) to assist in seeding user accounts with an initial set of imaginary users and [Polyline API](https://pypi.org/project/polyline/#:~:text=Decoding,setting%20geojson%3DTrue) to decode coordinates from the encoded string that Google Maps API returns for route data. In addition, [Toastify](https://github.com/apvarun/toastify-js) is used to style the Google Maps error notification. 
 
 ## Contents
