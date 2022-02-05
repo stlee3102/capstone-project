@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from pprint import pformat
 from jinja2 import StrictUndefined
 
+import hashlib # for password hashing
 import os # for API keys and password hashing
 import polyline # for decoding Google Maps encoded route coordinate string
 import requests # for API
@@ -13,11 +14,8 @@ app = Flask(__name__)
 app.secret_key = 'dev'
 app.jinja_env.undefined = StrictUndefined
 
-
 MAPS_API_KEY = os.environ['GOOGLE_MAPS_KEY']
 WEATHER_API_KEY = os.environ['WEATHER_KEY']
-
-
 
 @app.route('/')
 def index():
@@ -55,11 +53,23 @@ def login_user():
     """Login User"""
 
     email = request.form.get("email")
-    password = request.form.get("password")
+    attempted_password = request.form.get("password")
     user = crud.get_user_by_email(email)
 
-    if user:
-        if password == user.password:
+    if user:            
+        salt_from_storage = user.password[:32] #extract salt from stored password
+        key_from_storage = user.password[32:] #extract key from stored password
+
+        #hash attempted password
+        attempted_key = hashlib.pbkdf2_hmac(
+            'sha256', # the hash digest algorithm for HMAC
+            attempted_password.encode('utf-8'), # convert the password to bytes
+            salt_from_storage,
+            100000, # 100k iterations of SHA-256
+            dklen=128 # get 128 byte key
+        )
+ 
+        if attempted_key == key_from_storage:
             # flash(f"Successful login!")
             session["logged_in_user"] = user.email
 
@@ -113,8 +123,20 @@ def register_user():
         flash("User already created. Please login.")
         return redirect('/login')
     else:
+        salt = os.urandom(32) #32 byte
+
+        key = hashlib.pbkdf2_hmac(
+            'sha256', # the hash digest algorithm for HMAC
+            password.encode('utf-8'), # convert the password to bytes
+            salt,
+            100000, # 100k iterations of SHA-256
+            dklen=128 # get 128 byte key
+        )
+
+        storage = salt + key #set variable to store salt and key together for password
+
         #create user
-        crud.create_user(fname, lname, email, password)
+        crud.create_user(fname, lname, email, storage)
         #automatically log in new user
         user = crud.get_user_by_email(email)
         session["logged_in_user"] = user.email
@@ -321,13 +343,6 @@ def add_item():
     category_name = request.args.get('category-name', '')
     quantity = request.args.get('quantity', '')
     status = request.args.get('status', '') in ('true', 'True', 'TRUE') #boolean check of status string
-
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    print(item_name)
-    print(category_name)
-    print(quantity)
-    print(status)
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
     user = crud.get_user_by_email(session.get("logged_in_user"))
 

@@ -6,6 +6,9 @@ from faker import Faker
 import random
 import random_address
 
+import hashlib
+import os
+
 from server import app
 connect_to_db(app)
 
@@ -28,14 +31,37 @@ def make_maps(id):
         db.session.add(map)
         db.session.commit()
 
+#make test hashed password
+def make_pwd():
+    password = "test" #same password for all test users
+
+    salt = os.urandom(32) #randomly generate a 32 byte salt
+
+    key = hashlib.pbkdf2_hmac(
+        'sha256', # the hash digest algorithm for HMAC
+        password.encode('utf-8'), # convert the password to bytes
+        salt,
+        100000, # 100k iterations of SHA-256
+        dklen=128 # get 128 byte key
+    )
+
+    storage = salt + key #set variable to store salt and key together for password
+
+    return storage
+
 #make admin account
-user = User(fname="Admin", lname="Test", email="admin@test.com", password="test")
+
+password = make_pwd()
+
+user = User(fname="Admin", lname="Test", email="admin@test.com", password=password)
 db.session.add(user)
 db.session.commit()
 make_maps(1)
 
 #make default user test account
-user = User(fname="Jane", lname="Smith", email="jane@test.com", password="test")
+password = make_pwd()
+
+user = User(fname="Jane", lname="Smith", email="jane@test.com", password=password)
 db.session.add(user)
 db.session.commit()
 make_maps(2)
@@ -49,7 +75,9 @@ for i in range(0,3):
     email = fname[0:1]+lname+"@test.com";
     email = email.lower();
 
-    user = User(fname=fname, lname=lname, email=email, password="test")
+    password = make_pwd()
+
+    user = User(fname=fname, lname=lname, email=email, password=password)
 
     db.session.add(user)
 

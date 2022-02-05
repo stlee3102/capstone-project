@@ -14,7 +14,7 @@ class User(db.Model):
     fname = db.Column(db.String)
     lname = db.Column(db.String)
     email = db.Column(db.String, unique=True)
-    password = db.Column(db.String)
+    password = db.Column(db.LargeBinary)
 
     # maps = a list of Map objects
     # packinglists = a list of Packing List objects
