@@ -14,7 +14,7 @@ The application also uses [Faker library](https://faker.readthedocs.io/en/master
 Backend: Python, Flask, PostgreSQL, SQLAlchemy<br/>
 Frontend: JavaScript, AJAX, Jinja2, Bootstrap, HTML5, CSS3<br/>
 APIs: Google Places, Google Maps JavaScript, Google Directions, Weather, Polyline<br/>
-Libraries: Faker, Toastify<br/>
+Libraries: Hashlib, Faker, Toastify<br/>
 
 ## <a name="features"></a>Features
 
@@ -33,7 +33,7 @@ Store location pins in the map can be clicked to display store information:
 The main homepage after user account login welcomes the user by name and has a "Save My Trip" button:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot3b.png" width="900">
 
-User can register for an account to save maps and packing list information:
+User can register for an account to save maps and packing list information. Passwords are salted and hashed before storing in database to protect against database leaks:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot4.png" width="900">
 
 If a user has an account already, the user can log in to the account:
