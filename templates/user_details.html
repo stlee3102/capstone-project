@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Map Your Roadtrip!{% endblock %}
+{% block title %}User Details{% endblock %}
 
 {% block content %}
-
+<div class="m-3">
 <h1>{{ user.email }}</h1>
 
 Password: {{user.password}}
@@ -21,5 +21,6 @@ ID : {{user.user_id}}
 
 <a href="/admin">Back to Admin Dashboard</a>
 
+</div>
 
 {% endblock %}
