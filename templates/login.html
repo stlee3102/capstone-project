@@ -2,13 +2,8 @@
 
 {% block title %}Login{% endblock %}
 
-
 {% block head %}
-
-
-<link rel="stylesheet" type="text/css" href="/static/css/login.css" />
-
-
+  <link rel="stylesheet" type="text/css" href="/static/css/login.css" />
 {% endblock %}
 
 {% block content %}
@@ -22,6 +17,8 @@
 
 <div class="split right">
   <div class="centered">
+
+
     <form action="/login" method="POST">
       <div class="row">
         <label class="form-label"><b>Email</b></label>
@@ -40,6 +37,15 @@
 
     <br>
     <a href="/register">Don't have an account? Click here to register a new account.</a>
+
+    <br>
+    <br>
+
+    <h6><span>or</span></h6>
+    <br>
+
+    <div class="col-md-12"> <a class="btn btn-lg btn-social btn-block btn-google btn-outline-dark" href="/google-login"> <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" /> Sign in with Google</a> </div>
+
 
   </div>
 </div>

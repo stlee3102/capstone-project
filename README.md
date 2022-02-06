@@ -3,7 +3,7 @@ Roadtrippr helps you plan your next road trip by (1) displaying direction timing
 
 Using Google Maps JavaScript API, Google Places API, Google Directions API, and Weather API, Roadtrippr provides autocomplete origin and destination addresses, route maps, store information, and weather data. In your account, you have the option to save and delete maps, add and delete packing list items, and check off the status of whether an item has been packed yet, all of which are stored in a database. 
 
-All passwords are salted with a randomly generated 32 byte salt and hashed 100,000 times using the SHA-256 algorithm from [hashlib](https://docs.python.org/3/library/hashlib.html). A 128 byte key is generated and stored in the database along with the salt in place of the password.
+Users can either create an account or sign in with their Google Account, which uses the OAuth 2.0 protocol for authentication and authorization. All passwords are salted with a randomly generated 32 byte salt and hashed 100,000 times using the SHA-256 algorithm from [hashlib](https://docs.python.org/3/library/hashlib.html). A 128 byte key is generated and stored in the database along with the salt in place of the password.
 
 The application also uses [Faker library](https://faker.readthedocs.io/en/master/) to assist in seeding user accounts with an initial set of imaginary users and [Polyline API](https://pypi.org/project/polyline/#:~:text=Decoding,setting%20geojson%3DTrue) to decode coordinates from the encoded string that Google Maps API returns for route data. In addition, [Toastify](https://github.com/apvarun/toastify-js) is used to style the Google Maps error notification. 
 
@@ -15,7 +15,7 @@ The application also uses [Faker library](https://faker.readthedocs.io/en/master
 ## <a name="technologies"></a>Tech Stack
 Backend: Python, Flask, PostgreSQL, SQLAlchemy<br/>
 Frontend: JavaScript, AJAX, Jinja2, Bootstrap, HTML5, CSS3<br/>
-APIs: Google Places, Google Maps JavaScript, Google Directions, Weather, Polyline<br/>
+APIs: Google Places, Google Maps JavaScript, Google Directions, Weather, Polyline, Google OAuth 2.0<br/>
 Libraries: Hashlib, Faker, Toastify<br/>
 
 ## <a name="features"></a>Features
@@ -84,15 +84,29 @@ pip3 install -r requirements.txt
 pip3 install Faker
 pip3 install polyline
 pip3 install requests
+pip3 install Authlib
 ```
 
 Sign up to use the [Weather API](https://www.weatherapi.com/docs/) and the [Google Maps APIs](https://developers.google.com/maps/documentation/javascript/overview). Make sure the Google Maps JavaScript API,  Places API, and Directions API are activated.
+
+Obtain OAuth 2.0 credentials from the Google API Console(https://console.developers.google.com/). Authorize the following origins:
+```
+http://localhost
+http://localhost:5000
+```
+
+Authorize the following redirect URI:
+```
+http://localhost:5000/authorize
+```
 
 Save your API keys in a file called <kbd>secrets.sh</kbd> using this format:
 
 ```
 export GOOGLE_MAPS_KEY="YOUR_KEY_HERE"
 export WEATHER_KEY="YOUR_KEY_HERE"
+export GOOGLE_CLIENT_ID="YOUR_KEY_HERE"
+export GOOGLE_CLIENT_SECRET="YOUR_KEY_HERE"
 ```
 
 Source your keys from your secrets.sh file into your virtual environment:
