@@ -287,13 +287,15 @@ class AutocompleteDirectionsHandler {
 }
 
 function clearMarkers() {
-    setMapOnAll(null);
+    for (let i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
     markers = [];
-  } 
+}
 
-/****RESET MARKERS */
 function showStoresInBoundary(map, stores)
 {
+    clearMarkers();
  
     for(let i = 0; i < waypoints.length; i++)
     {
