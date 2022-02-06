@@ -1,10 +1,8 @@
 /* Set the size of the div element that contains the map */
 #google-map {
     height: 400px;
-    /* The height is 400 pixels */
     width: 100%;
-    /* The width is the width of the web page */
-  }
+}
 
 /* padding for the main directions and map area */
 #map-container{
@@ -17,16 +15,15 @@
 /* center spacing for weather forecast contents in weather table */
 #weather-table{
   padding-left: 30%;
-
 }
 
+/* padding for destination information */
 #destination-information{
   margin-left: 5%;
   margin-right: 5%;
 }
 
-
-
+/* Set background */
 body{
   background-image: url("/static/img/main-bg.jpg");
   background-position: center;
