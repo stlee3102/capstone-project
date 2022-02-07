@@ -1,12 +1,11 @@
 /*****BANNER TEXT FADEOUT - "WELCOME"*****/
 $(window).scroll(function(){
 $(".banner-text").css("opacity",.9- $(window).scrollTop()/300); //full transluscent opacity at window scrolltop 300
-console.log($(window).scrollTop())
 });
 
 /*****BANNER TEXT 2 FADEOUT - "TO A NEW ADVENTURE"*****/
 $(window).scroll(function(){
-    ($(window).scrollTop()<=575)  // switch off opacity equations when window scrolltop offset reaches 575
+    ($(window).scrollTop()<=575)  // step function to introduce different behavior when threshold is passed - switch off opacity equations when window scrolltop offset reaches 575
     ?
     $(".banner-text2").css("opacity",.9)
     :
@@ -33,45 +32,51 @@ $(window).scroll(function(){
 
 
 /*****TRAVELING CAR ANIMATION*****/
-const html = document.documentElement;
-const canvas = document.getElementById("traveling-car");
-const context = canvas.getContext("2d");
+const html = document.documentElement; //get the full html height (including area outside of window)
+const canvas = document.getElementById("traveling-car"); //get the canvas
+const context = canvas.getContext("2d"); //get the space in the canvas to do draw commands
 
-const frameCount = 478;
-const currentFrame = index => (
+const frameCount = 475; //image frames
+const currentFrame = index => ( //change index to then current image frame
   `/static/img/${index.toString().padStart(4, '0')}.jpg`
 )
 
-const preloadImages = () => {
+const preloadImages = () => { //preload all images to avoid lag in image download on scrolling
   for (let i = 1; i < frameCount; i++) {
     const img = new Image();
     img.src = currentFrame(i);
   }
 };
 
+
+//on startup load the first image
 const img = new Image()
 img.src = currentFrame(1);
-canvas.width=1858;
-canvas.height=770;
+canvas.width=1858; //set canvas width
+canvas.height=770; //set canvas height
 img.onload=function(){
-  context.drawImage(img, 0, 0);
+  context.drawImage(img, 0, 0);  //when image is loaded, draw the image on the canvas
 }
 
-const updateImage = index => {
+//update image index and redraw new image
+const updateImage = index => { 
   img.src = currentFrame(index);
   context.drawImage(img, 0, 0);
 }
 
+
+//when user scrolls, update and draw images
 window.addEventListener('scroll', () => {  
-  const scrollTop = html.scrollTop;
-  const maxScrollTop = html.scrollHeight - window.innerHeight;
+  const scrollTop = html.scrollTop; //get the pixel number offset from the top of the full html page based on the top of the window when user scrolls vertically, 
+  const maxScrollTop = html.scrollHeight - window.innerHeight; //maximum pixel number of scroll top when the window reaches the bottom of the full html page
   const scrollFraction = scrollTop / maxScrollTop;
   const frameIndex = Math.min(
-    frameCount - 1,
-    Math.ceil(scrollFraction * frameCount)
+    frameCount - 2, //show last frame if fraction is greater than 1 (note that updateImage is + 1 )
+    Math.ceil(scrollFraction * frameCount) //calculate image to show based on user's scroll
   );
   
-  requestAnimationFrame(() => updateImage(frameIndex + 1))
+  requestAnimationFrame(() => updateImage(frameIndex + 1)) //update animation with the next image
 });
 
+//call images to be preloaded
 preloadImages()

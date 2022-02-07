@@ -21,17 +21,11 @@ function initMap() {
 class WeatherHandler{
     constructor(){
 
-        let endLocation = document.getElementById("endpt-id").innerText;
-        endLocation = endLocation.split(",");
-        if (endLocation.length <= 4)
-        {
-            endLocation.shift();
-        }
-        else{
-            endLocation.shift();
-            endLocation.shift();
-        }
-        endLocation = endLocation.join(",");
+        let endLocation = document.getElementById("endpt-id").innerText; //get destination information
+            endLocation = endLocation.split(","); //split destination information into array to separate city, state, and country end location to fit weather api requirements
+            endLocation = endLocation.slice(-3); //get city, state, and country          
+            endLocation = endLocation.join(","); //rejoin array into string
+
 
         const weatherLocation = {
             location: endLocation
@@ -137,7 +131,6 @@ class WeatherHandler{
   
 class DirectionsHandler {
     map;
-
     travelMode;
     directionsService;
     directionsRenderer;
@@ -217,12 +210,13 @@ class DirectionsHandler {
 
                             for(let i = 0; i < waypoints.length; i++)
                             {
+                                //draws a square to search approximately 3 miles in each direction of each of the way points along the route
                                 const waypointCoordinates = [
-                                    { lat: waypoints[i][0]-.02, lng: waypoints[i][1]-.02 },
-                                    { lat: waypoints[i][0]-.02, lng: waypoints[i][1]+.02 },
-                                    { lat: waypoints[i][0]+.02, lng: waypoints[i][1]+.02 },
-                                    { lat: waypoints[i][0]+.02, lng: waypoints[i][1]-.02 },
-                                    { lat: waypoints[i][0]-.02, lng: waypoints[i][1]-.02 },
+                                    { lat: waypoints[i][0]-.04, lng: waypoints[i][1]-.04 },
+                                    { lat: waypoints[i][0]-.04, lng: waypoints[i][1]+.04 },
+                                    { lat: waypoints[i][0]+.04, lng: waypoints[i][1]+.04 },
+                                    { lat: waypoints[i][0]+.04, lng: waypoints[i][1]-.04 },
+                                    { lat: waypoints[i][0]-.04, lng: waypoints[i][1]-.04 },
                                 ];
                                 
                                 const waypointPath = new google.maps.Polyline({
