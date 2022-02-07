@@ -197,7 +197,8 @@
     {% endif %}
     <td>{{item.category.category_name}}</td>
     <td>{{item.item_name}}</td>
-    <td>{{item.quantity}}</td>
+
+    <td><input type="number" id="item-qty" min="0" name={{item.item_id}} value={{item.quantity}}></td>
     <td>
         <label class="checkbox-container">
             {% if item.status == True %}

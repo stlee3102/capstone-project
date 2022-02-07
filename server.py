@@ -311,7 +311,6 @@ def get_weather():
     return data  
     
 
-
 @app.route('/weather')
 def show_weather_form():
     """Show weather search form"""
@@ -428,6 +427,14 @@ def change_item_status(item_id, status):
     
     return redirect('/packing-list')
 
+
+@app.route('/change-item-qty/<item_id>/<qty>')
+def change_item_qty(item_id, qty):
+    """Change Quantity of Item in Packing List"""
+
+    crud.change_item_qty(item_id=item_id, qty=qty)
+    
+    return redirect('/packing-list')
 
 
 if __name__ == "__main__":

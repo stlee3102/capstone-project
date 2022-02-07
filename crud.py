@@ -120,6 +120,14 @@ def change_item_status(item_id, status):
     db.session.add(item)
     db.session.commit()
 
+def change_item_qty(item_id, qty):
+    """Change qty of item in Packing List"""
+
+    item = PackingList.query.filter(PackingList.item_id==item_id).first()
+
+    item.quantity = qty
+    db.session.add(item)
+    db.session.commit()
 
 
 if __name__ == '__main__':
