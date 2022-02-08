@@ -188,41 +188,41 @@
         <th scope="col">Delete Item</th>
       </tr>
     </thead>
+
     <tbody>
+      {% for item in packinglist %}
+        <tr>
+        {% if 'logged_in_user' in session and user.email == 'admin@test.com'%}
+        <td class="table-cell">{{item.item_id}}</td>
+        {% endif %}
+        <td class="table-cell">{{item.category.category_name}}</td>
+        <td class="table-cell">{{item.item_name}}</td>
 
-  {% for item in packinglist %}
-    <tr>
-    {% if 'logged_in_user' in session and user.email == 'admin@test.com'%}
-    <td>{{item.item_id}}</td>
-    {% endif %}
-    <td>{{item.category.category_name}}</td>
-    <td>{{item.item_name}}</td>
+        <td class="table-cell"><input type="number" id="item-qty" min="0" max="100" name={{item.item_id}} value={{item.quantity}}></td>
+        <td class="table-cell">
+            <label class="checkbox-container">
+                {% if item.status == True %}
+                    <input type="checkbox" class="myCheck" value={{item.item_id}} checked="checked" >
+                {% else %}
+                    <input type="checkbox" class="myCheck"  value={{item.item_id}} >
+                {% endif %}      
+            </label>
+        </td>
 
-    <td><input type="number" id="item-qty" min="0" name={{item.item_id}} value={{item.quantity}}></td>
-    <td>
-        <label class="checkbox-container">
-            {% if item.status == True %}
-                <input type="checkbox" class="myCheck" value={{item.item_id}} checked="checked" >
-            {% else %}
-                <input type="checkbox" class="myCheck"  value={{item.item_id}} >
-            {% endif %}      
-        </label>
-    </td>
+        {% if 'logged_in_user' in session and user.email == 'admin@test.com'%}
+        <td class="table-cell">
+        {{item.user.fname}} {{item.user.lname}}
+        </td>
+        {% endif %}
 
-    {% if 'logged_in_user' in session and user.email == 'admin@test.com'%}
-    <td>
-    {{item.user.fname}} {{item.user.lname}}
-    </td>
-    {% endif %}
-
-    <td>
-        <a class="btn btn-danger btn-outline-light" href="/delete-item/{{item.item_id}}" method="GET">
-            Delete
-            </a>
-    </td>
-    </tr>
-  {% endfor %}
-</tbody>
+        <td class="table-cell">
+            <a class="btn btn-danger btn-outline-light" href="/delete-item/{{item.item_id}}" method="GET">
+                Delete
+                </a>
+        </td>
+        </tr>
+      {% endfor %}
+    </tbody>
 </table>
 
 {% else %}
