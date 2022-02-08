@@ -12,6 +12,7 @@ The application also uses [Faker library](https://faker.readthedocs.io/en/master
 * [Tech Stack](#technologies)
 * [Features](#features)
 * [Installation](#install)
+* [Version 2.0](#version2)
 
 ## <a name="technologies"></a>Tech Stack
 Backend: Python, Flask, PostgreSQL, SQLAlchemy<br/>
@@ -147,3 +148,10 @@ python server.py
 ```
 
 You can now navigate to 'localhost:5000/' to access Roadtrippr.
+
+
+## <a name="version2"></a>Version 2.0
+Add ability for users to:
+* Save their favorite Walmart stores
+* Communicate and save friends to roadtrip with together
+* Text message and email their route information 
