@@ -20,6 +20,7 @@ APIs: Google Places, Google Maps JavaScript, Google Directions, Google Sign-In, 
 Libraries: Hashlib, Faker, Toastify<br/>
 
 ## <a name="features"></a>Features
+The following is a walkthrough of the User Experience and Admin Experience:
 
 ### User Experience
 
@@ -50,7 +51,7 @@ User maps can be saved, redisplayed, and deleted:
 Maps can be re-displayed by clicking "Display Map" without having to re-enter origin and destination information:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot7.png" width="900">
 
-User can save item data in a packing list (item name, category, and quantity), change the quantity of an item either by changing the number directly in the quantity box or by clicking up and down arrows to increase or decrease the quantity, check off whether the item has been packed, and delete items from their packing list:
+User can save item data in a packing list (item name, category, quantity, and packed status), change the quantity of an item either by changing the number directly in the quantity box or by clicking up and down arrows to increase or decrease the quantity, change the status of whether the item has been packed, and delete items from their packing list. All changes are automatically stored in the database:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot8.png" width="900">
 
 ### Admin Experience
@@ -61,7 +62,7 @@ Admin can view all user data:
 Admin can view all users' saved maps:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot10.png" width="900">
 
-Admin can search Weather data for any city:
+Admin can search weather data for any city:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot11.png" width="900">
 
 Admin can view Weather API JSON data for debugging purposes:
