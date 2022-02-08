@@ -1,11 +1,12 @@
 # Roadtrippr
-Roadtrippr helps you plan your next road trip by (1) displaying direction timing and route data, whether you plan to walk, bike, drive, or take public transportation, (2) providing store information for all Walmart stores on route so you can easily restock supplies, (3) showing you current and forecasted weather data for your destination, and (4) enabling you to plan and keep track of your packing list! 
 
-Using Google Maps JavaScript API, Google Places API, Google Directions API, and Weather API, Roadtrippr provides autocomplete origin and destination addresses, route maps, store information, and weather data. In your account, you have the option to save and delete maps, add and delete packing list items, and check off the status of whether an item has been packed yet, all of which are stored in a database. 
+Roadtrippr helps you plan your next road trip by (1) helping you autocomplete addresses, (2) displaying direction timing and route data, whether you plan to walk, bike, drive, or take public transportation, (3) providing store information for all Walmart stores on route, (4) showing you destination weather data, and (5) enabling you to plan and keep track of your packing list so you know if you need to stop by a Walmart to restock supplies!
+
+Using Google Maps JavaScript API, Google Places API, Google Directions API, and Weather API, Roadtrippr provides the ability to autocomplete origin and destination addresses, retrieve step by step direction and time to destination data, store information for all Walmart stores along the route, and destination weather data. In your account, you have the option to save and delete maps, add and delete packing list items, change the quantity of packing list items, and check off the status of whether an item has been packed yet, all of which are stored in a database. 
 
 Users can either create an account or sign in with their Google Account, which uses the OAuth 2.0 protocol for authentication and authorization. All passwords are salted with a randomly generated 32 byte salt and hashed 100,000 times using the SHA-256 algorithm from [hashlib](https://docs.python.org/3/library/hashlib.html). A 128 byte key is generated and stored in the database along with the salt in place of the password.
 
-The application also uses [Faker library](https://faker.readthedocs.io/en/master/) to assist in seeding user accounts with an initial set of imaginary users and [Polyline API](https://pypi.org/project/polyline/#:~:text=Decoding,setting%20geojson%3DTrue) to decode coordinates from the encoded string that Google Maps API returns for route data. In addition, [Toastify](https://github.com/apvarun/toastify-js) is used to style the Google Maps error notification. 
+The application also uses [Faker library](https://faker.readthedocs.io/en/master/) to assist in seeding an initial set of imaginary users and [Polyline API](https://pypi.org/project/polyline/#:~:text=Decoding,setting%20geojson%3DTrue) to decode coordinates from the encoded string that Google Maps API returns for route data. In addition, [Toastify](https://github.com/apvarun/toastify-js) is used to style the error notifications for Google Maps and out of bounds quantities in the Packing List. 
 
 ## Contents
 * [Tech Stack](#technologies)
@@ -15,7 +16,7 @@ The application also uses [Faker library](https://faker.readthedocs.io/en/master
 ## <a name="technologies"></a>Tech Stack
 Backend: Python, Flask, PostgreSQL, SQLAlchemy<br/>
 Frontend: JavaScript, AJAX, Jinja2, Bootstrap, HTML5, CSS3<br/>
-APIs: Google Places, Google Maps JavaScript, Google Directions, Weather, Polyline, Google OAuth 2.0<br/>
+APIs: Google Places, Google Maps JavaScript, Google Directions, Google Sign-In, Weather, Polyline<br/>
 Libraries: Hashlib, Faker, Toastify<br/>
 
 ## <a name="features"></a>Features
@@ -47,7 +48,7 @@ User maps can be saved, redisplayed, and deleted:
 Maps can be re-displayed without having to re-enter origin and destination information:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot7.png" width="900">
 
-User can save item data in a packing list (item name, category, and quantity), check off whether the item has been packed, and delete items from their packing list:
+User can save item data in a packing list (item name, category, and quantity), change the quantity of an item either by changing the number directly in the quantity box or by clicking up and down arrows to increase or decrease the quantity, check off whether the item has been packed, and delete items from their packing list:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot8.png" width="900">
 
 
