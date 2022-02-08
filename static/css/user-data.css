@@ -1,6 +1,5 @@
 body{
     overflow-x: hidden;
-
 }
 
 header{
@@ -17,4 +16,10 @@ h2{
     padding-top: 8%;
     color: white;
     padding-bottom: 8%;
+}
+
+#user-data{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+
 }
