@@ -391,8 +391,11 @@ def delete_category():
 
     category_name = request.args.get('category-name', '')
 
-    crud.delete_category(category_name=category_name)
-
+    if category_name != "Miscellaneous":
+        crud.delete_category(category_name=category_name)
+    else:
+        flash("Miscellaneous Category Deletion Not Permitted")
+    
     return redirect('/packing-list')
 
 

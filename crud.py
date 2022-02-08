@@ -103,10 +103,21 @@ def delete_item(item_id):
     db.session.commit()
 
 def delete_category(category_name):
-    """Delete category for packing list"""
-    catname = Categories.query.filter(Categories.category_name==category_name).first()
-    db.session.delete(catname)
+    """Delete category for packing list. Any items with the deleted category will be reassigned to Miscellaneous"""
+
+    deleted_category = Categories.query.filter(Categories.category_name==category_name).first()
+    deleted_category_id = deleted_category.category_id
+
+    misc_category = Categories.query.filter(Categories.category_name=="Miscellaneous").first()
+
+    items = PackingList.query.filter(PackingList.category_id==deleted_category_id).all()
+
+    for item in items:
+        item.category = misc_category
+
+    db.session.delete(deleted_category)
     db.session.commit()
+
 
 def change_item_status(item_id, status):
     """Change status of item in Packing List"""

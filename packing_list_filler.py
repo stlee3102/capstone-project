@@ -35,6 +35,9 @@ cat6 = Categories(category_name="Toiletries")
 db.session.add(cat6)
 db.session.commit()
 
+cat7 = Categories(category_name="Miscellaneous")
+db.session.add(cat7)
+db.session.commit()
 
 #Items for Admin
 item1 = PackingList(user_id=1, item_name="Shirt", category_id=1, quantity=2, status=False)

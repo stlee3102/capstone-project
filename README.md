@@ -57,6 +57,7 @@ Admin can:
 * View all saved maps
 * View Weather API JSON data
 * Add packing list item categories
+* Delete packing list item categories (Items categorized under a deleted category will be assigned to Miscellaneous. Miscellaneous category cannot be deleted.)
 * View all packing lists
 
 ## <a name="install"></a>Installation
