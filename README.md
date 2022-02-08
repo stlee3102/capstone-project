@@ -21,6 +21,8 @@ Libraries: Hashlib, Faker, Toastify<br/>
 
 ## <a name="features"></a>Features
 
+### User Experience
+
 The initial landing page features a JavaScript scroll animation with font opacity and font size transitions. 
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot1.gif" width="900">
 
@@ -51,14 +53,22 @@ Maps can be re-displayed without having to re-enter origin and destination infor
 User can save item data in a packing list (item name, category, and quantity), change the quantity of an item either by changing the number directly in the quantity box or by clicking up and down arrows to increase or decrease the quantity, check off whether the item has been packed, and delete items from their packing list:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot8.png" width="900">
 
+### Admin Experience
 
-Admin can:
-* View all user data
-* View all saved maps
-* View Weather API JSON data
-* Add packing list item categories
-* Delete packing list item categories (Items categorized under a deleted category will be assigned to Miscellaneous. Miscellaneous category cannot be deleted.)
-* View all packing lists
+Admin can view all user data:
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot9.png" width="900">
+
+Admin can view all users' saved maps:
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot10.png" width="900">
+
+Admin can search Weather data for any city:
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot11.png" width="900">
+
+Admin can view Weather API JSON data for debugging purposes:
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot12.png" width="900">
+
+Admin can view all users' saved packing list data, add new categories, and delete categories. Items categorized under a deleted category will be assigned to Miscellaneous. Miscellaneous category cannot be deleted.
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot13.png" width="900">
 
 ## <a name="install"></a>Installation
 
