@@ -32,10 +32,10 @@ The main homepage displays an interface for the user to select the origin and de
 When the user clicks "Plan My Trip!", the app displays route timing, directions, store locations along the route, and destination weather data:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot3.png" width="900">
 
-Store location pins in the map can be clicked to display store information:
+Users can mouseover store location markers on the map to see the store name and can click the marker to display store information:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot3a.png" width="900">
 
-The main homepage after user account login welcomes the user by name and has a "Save My Trip" button:
+The main homepage after user account login welcomes the user by name and adds a "Save My Trip" button:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot3b.png" width="900">
 
 User can register for an account to save maps and packing list information. Passwords are salted and hashed before storing in database to protect against database leaks:
@@ -47,7 +47,7 @@ If a user has an account already, the user can log in to the account:
 User maps can be saved, redisplayed, and deleted:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot6.png" width="900">
 
-Maps can be re-displayed without having to re-enter origin and destination information:
+Maps can be re-displayed by clicking "Display Map" without having to re-enter origin and destination information:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot7.png" width="900">
 
 User can save item data in a packing list (item name, category, and quantity), change the quantity of an item either by changing the number directly in the quantity box or by clicking up and down arrows to increase or decrease the quantity, check off whether the item has been packed, and delete items from their packing list:
