@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Map Your Roadtrip!{% endblock %}
+{% block title %}Saved Maps{% endblock %}
 
 
 {% block head %}
@@ -31,7 +31,7 @@
 
 {% if list_maps is defined and list_maps|length > 0 %}
 
-<div class="row row-cols-1 row-cols-md-2 container mx-auto" id = "card-grid">
+<div class="row row-cols-md-2 container mx-auto" id = "card-grid">
 
 {% for map in list_maps %}
 

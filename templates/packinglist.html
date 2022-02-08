@@ -198,7 +198,7 @@
         <td class="table-cell">{{item.category.category_name}}</td>
         <td class="table-cell">{{item.item_name}}</td>
 
-        <td class="table-cell"><input type="number" id="item-qty" min="0" max="100" name={{item.item_id}} value={{item.quantity}}></td>
+        <td class="table-cell"><input type="number" id="item-qty" min="0" max="20" name={{item.item_id}} value={{item.quantity}}></td>
         <td class="table-cell">
             <label class="checkbox-container">
                 {% if item.status == True %}

@@ -3,22 +3,17 @@
 {% block title %}Weather Result{% endblock %}
 
 {% block content %}
+<br>
   <div class="container">
-    <div class="row">
-      <div class="col d-flex justify-content-center">
-        <a href="/weather" class="lead backlink">
-          Go back to the search form
-        </a>
-      </div>
-    </div>
+    <center> 
+    <h4>
 
-    <h4>Location:</h4>
-    <p>
-    {{location.name}}, {{location.region}}, {{location.country}}
-    </p>
+            {{location.name}}, {{location.region}}, {{location.country}}
+          
+    </h4>
     
 
-    <h4>Current Weather:</h4>
+
     <p>
     <img src={{current.condition.icon}}>
     <br>
@@ -28,10 +23,13 @@
     <br>
     <b>Local Time: </b>{{location.localtime}}
     </p>
-    
 
-    <h4>Forecast:</h4>
-    {% for forecastday in forecastdays %}
+
+
+    <div class="container">
+      <div class="row align-items-start">
+          {% for forecastday in forecastdays %}
+    <div class="col">   
     <p>
     <h5>{{forecastday.date}}</h5>
     <p>
@@ -51,11 +49,18 @@
     <br>
     <b>Total Precipitation: </b>{{forecastday.day.totalprecip_in}}&#xA8;
     </p>
+  </div>
     {% endfor %}
-    <div id="results-as-json">
-      <h2>Results as JSON</h2>
-      <pre>{{ pformat(data) }}</pre>
     </div>
+    </div>
+
+<hr>
+<h2>Weather API JSON Results</h2>
+</center>
+
+<div class="mx-auto bg-light" style="width: 900px;">
+      <pre>{{ pformat(data) }}</pre>
+</div>
 
 
 

@@ -2,19 +2,50 @@
 
 {% block title %}User List{% endblock %}
 
+
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href="/static/css/user-data.css" />
+
+{% endblock %}
+
+
 {% block content %}
+
+
+<header>
+
+  <h2>User Data</h2>
+  
+</header>
 <div class="m-3">
 
-<h1> LIST OF USERS </h1>
-<br>
+    <div class="row row-cols-md-2 container mx-auto" id = "card-grid">
 
-{% for user in list_users %}
-<li><a href="/users/{{user.user_id}}">{{user.email}}</a></li>
-{% endfor %}
-<br>
-<a href="/admin">Back to Admin Dashboard</a>
+        {% for user in list_users %}
+            <div class="col mb-4">
+                <div class="card bg-light">
+                    <div class="card-header">
+                        <center>
+                        <h3>User # {{loop.index}}</h3>
+                        </center>
+                    </div>
+                
+                    <div class="card-body mx-left">
 
-</div>
+                        User Id: {{user.user_id}}
+                        <br>
+                        First Name: {{user.fname}}
+                        <br>
+                        Last Name: {{user.lname}}
+                        <br>
+                        Email: {{user.email}}
+                    
+                    </div>
+                </div>
+            </div>    
+        {% endfor %}
+    </div>
 
 
 {% endblock %}

@@ -145,10 +145,7 @@ def login_user():
             # flash(f"Successful login!")
             session["logged_in_user"] = user.email
 
-            if user.email == 'admin@test.com':
-                return render_template('admin.html', user=user)
-            else:
-                return redirect(f'/main')
+            return redirect('/main')
         else:
             flash("Incorrect password, try again")
     else:
@@ -170,7 +167,7 @@ def show_admin():
     """Show admin dashboard."""
     user = crud.get_user_by_email(session.get("logged_in_user"))
 
-    return render_template('admin.html', user=user)
+    return redirect('/main')
 
 
 @app.route('/users')
@@ -378,16 +375,23 @@ def show_all_packing_lists():
 def add_category():
     """Add Category to Packing List"""
 
+    user = crud.get_user_by_email(session.get("logged_in_user"))
+
     category_name = request.args.get('category-name', '')
 
     crud.add_category(category_name=category_name)
 
-    return redirect('/packing-list')
+    if user.email == 'admin@test.com':
+        return redirect('/all-packing-lists')
+    else:
+        return redirect('/packing-list')
 
 
 @app.route('/delete-category')
 def delete_category():
     """Delete Category to Packing List"""
+
+    user = crud.get_user_by_email(session.get("logged_in_user"))
 
     category_name = request.args.get('category-name', '')
 
@@ -396,12 +400,17 @@ def delete_category():
     else:
         flash("Miscellaneous Category Deletion Not Permitted")
     
-    return redirect('/packing-list')
+    if user.email == 'admin@test.com':
+        return redirect('/all-packing-lists')
+    else:
+        return redirect('/packing-list')
 
 
 @app.route('/add-item')
 def add_item():
     """Add Item to Packing List"""
+
+    user = crud.get_user_by_email(session.get("logged_in_user"))
 
     item_name = request.args.get('item-name', '')
     category_name = request.args.get('category-name', '')
@@ -412,32 +421,50 @@ def add_item():
 
     crud.add_item(user_id=user.user_id, item_name=item_name, category_name=category_name, quantity=quantity, status=status)
 
-    return redirect('/packing-list')
+    if user.email == 'admin@test.com':
+        return redirect('/all-packing-lists')
+    else:
+        return redirect('/packing-list')
 
 @app.route('/delete-item/<item_id>', methods=["GET"])
 def delete_item(item_id):
     """"Delete Item from Packing List"""
 
+    user = crud.get_user_by_email(session.get("logged_in_user"))
+
     crud.delete_item(item_id)
 
-    return redirect('/packing-list')
+    if user.email == 'admin@test.com':
+        return redirect('/all-packing-lists')
+    else:
+        return redirect('/packing-list')
 
 @app.route('/change-item-status/<item_id>/<status>')
 def change_item_status(item_id, status):
     """Change Status of Item in Packing List"""
 
+    user = crud.get_user_by_email(session.get("logged_in_user"))
+
     crud.change_item_status(item_id=item_id, status=status)
     
-    return redirect('/packing-list')
+    if user.email == 'admin@test.com':
+        return redirect('/all-packing-lists')
+    else:
+        return redirect('/packing-list')
 
 
 @app.route('/change-item-qty/<item_id>/<qty>')
 def change_item_qty(item_id, qty):
     """Change Quantity of Item in Packing List"""
 
+    user = crud.get_user_by_email(session.get("logged_in_user"))
+
     crud.change_item_qty(item_id=item_id, qty=qty)
     
-    return redirect('/packing-list')
+    if user.email == 'admin@test.com':
+        return redirect('/all-packing-lists')
+    else:
+        return redirect('/packing-list')
 
 
 if __name__ == "__main__":

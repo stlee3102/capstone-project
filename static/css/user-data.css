@@ -1,0 +1,20 @@
+body{
+    overflow-x: hidden;
+
+}
+
+header{
+
+    background: URL("/static/img/data-bg.jpg");
+    background-repeat: no-repeat;
+    text-align:center;
+    color:white;
+    width:100vw;
+    }
+   
+h2{
+    font-size:70px;
+    padding-top: 8%;
+    color: white;
+    padding-bottom: 8%;
+}

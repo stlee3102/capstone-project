@@ -19,7 +19,7 @@ for (const qty of document.querySelectorAll("#item-qty")) {
   });
 
   qty.addEventListener('keyup', (evt) => {
-    if (qty.value >= 0 && qty.value <= 100)
+    if (qty.value >= 0 && qty.value <= 20)
     {
       let item_id = qty.name;
 
@@ -28,7 +28,7 @@ for (const qty of document.querySelectorAll("#item-qty")) {
     else
     {
       Toastify({
-        text: "Item quantity must be between 0 and 100",
+        text: "Item quantity must be between 0 and 20",
         duration: 3000,
         close: true,
         gravity: "top", // `top` or `bottom`

@@ -2,44 +2,60 @@
 
 {% block title %}Weather Search{% endblock %}
 
+
+{% block head %}
+
+<link rel="stylesheet" type="text/css" href="/static/css/weather-json.css" />
+
+{% endblock %}
+
+
 {% block content %}
-<div class="container">
+
+
+<header>
+
+  <h2>Weather JSON Display</h2>
+  
+</header>
+  
+
+<div class="container d-flex justify-content-center">
   <div class="row">
     <div class="col">
-      <h2>Weather Search</h2>
 
       <form method="GET" action="/weather/search">
      
         <div class="row">
-          <label class="form-label" for="search-zip">Zip Code or City Name</label>
+          <label class="form-label" for="search-zip"><b>Zip Code or City Name</b></label>
 
-          <div class="col-8">
+          <div class="col">
  
-          <input
-            id="search-zip"
-            class="form-control"
-            type="text"
-            name="q"
-          >
+            <input
+              id="search-zip"
+              class="form-control"
+              type="text"
+              name="q"
+            >
           </div>
-        </div>
-        <p>
-        <div class="row">
-          <label class="form-label" for="search-radius">Future Forecast Days (Up to 3)</label>
+      
+          <label class="form-label" for="search-radius"><b>Future Forecast Days (Up to 3)</b></label>
  
-          <div class="col-8">
+          <div class="col">
               <input
                 id="days"
                 class="form-control"
                 type="number"
+                max="3"
                 name="days"
               >
-            </div>
-            </div>
-          </p>
+          
+          </div>
+        </div>
+      
         <div class="row mt-4">
-          <div class="col-3">
-            <input type="submit" value="Get Forecast" class="btn btn-primary">
+          <div class="col">
+            <input type="submit" value="Get JSON" class="btn btn-primary">
           </div>
         </div>
       </form>

@@ -29,6 +29,7 @@ body{
   background-position: center;
   background-size: cover;
   z-index: -10;
+  overflow-y: hidden; /*this is turned to visible when route is rendered in map.js*/
 }
 
 /* Make "Save My Maps" inside form button on same line as "Plan My Trip" button outside of form*/

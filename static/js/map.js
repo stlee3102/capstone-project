@@ -122,7 +122,9 @@ class AutocompleteDirectionsHandler {
 
         planBtn.addEventListener("click", () => {
             
-            this.route(); //call function to get route information
+            document.body.style.overflowY = "visible"; //turn off overflow-Y:hidden in CSS
+
+            this.route(); //call function to get route information            
 
             //display weather bar
             let endLocation = document.getElementById("end_pt").value; //get destination information
