@@ -68,7 +68,7 @@ make_maps(2)
 
 #make other user accounts
 
-for i in range(0,3):
+for i in range(0,2):
     fname = fake.first_name()
     lname = fake.last_name()
 
@@ -83,6 +83,6 @@ for i in range(0,3):
 
     db.session.commit()
 
-    id = i+3
+    id = i+3 #make user id's start at 3 since the first two users area reserved for Admin and Jane
 
-    make_maps(id)
+    make_maps(id) #make maps for each user id

@@ -255,8 +255,16 @@ def show_all_maps():
 
 @app.route('/delete-map/<map_id>', methods=["GET"])
 def delete_map(map_id):
+
+    user = crud.get_user_by_email(session.get("logged_in_user"))
+
     crud.delete_map(map_id)
-    return redirect('/user-maps')
+    
+    if user.email == 'admin@test.com':
+        return redirect('/all-maps')
+    else:
+        return redirect('/user-maps')
+
 
 
 @app.route("/decode-polyline", methods=["POST"])
