@@ -176,6 +176,8 @@ class DirectionsHandler {
                         //Display text directions
                         directionsRenderer.setPanel(document.getElementById("text-directions"));
 
+                        document.body.style.overflowY = "visible"; //turn off overflow-Y:hidden in CSS
+
                         directionsService.route(
                         {
                             origin: { placeId: originPlaceId},
