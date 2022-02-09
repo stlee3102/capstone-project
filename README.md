@@ -57,7 +57,7 @@ User can save item data in a packing list (item name, category, quantity, and pa
 
 ### Admin Experience
 
-Admin can view all user data:
+Admin can view all user data and delete users:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot9.png" width="900">
 
 Admin can view all users' saved maps:
