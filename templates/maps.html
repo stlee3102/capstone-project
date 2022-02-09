@@ -4,89 +4,71 @@
 
 
 {% block head %}
-
-<link rel="stylesheet" type="text/css" href="/static/css/saved-maps.css" />
-
+    <link rel="stylesheet" type="text/css" href="/static/css/saved-maps.css" />
 {% endblock %}
 
 
 {% block content %}
 
-<header>
-
-    
-{% if 'logged_in_user' in session and user.email != 'admin@test.com'%}
-
-<h2 id="image-text">{{user.fname}}'s Saved Maps</h3>
-
-{% else %}
-
-<h2 id="image-text"> Saved Maps </h3> 
-
-{% endif %}
-
-</header>
+    <header>    
+        {% if 'logged_in_user' in session and user.email != 'admin@test.com'%}
+            <h2 id="image-text">{{user.fname}}'s Saved Maps</h3>
+        {% else %}
+            <h2 id="image-text"> Saved Maps </h3> 
+        {% endif %}
+    </header>
 
 <br>
 
-{% if list_maps is defined and list_maps|length > 0 %}
+    {% if list_maps is defined and list_maps|length > 0 %}
+        <div class="row row-cols-md-2 container mx-auto" id = "card-grid">
 
-<div class="row row-cols-md-2 container mx-auto" id = "card-grid">
+        {% for map in list_maps %}
+            <div class="col mb-4">
+                <div class="card bg-light">
+                    <div class="card-header">
+                        <center>
+                        <h3>Map # {{loop.index}}</h3>
+                        {% if 'logged_in_user' in session and user.email == 'admin@test.com'%}
+                        <b><i>{{map.user.fname}} {{map.user.lname}}</i></b>
+                        {% endif %}
+                        </center>
+                    </div>
 
-{% for map in list_maps %}
+                    <div class="card-body mx-auto">
+                                
+                        <h5>Start Pt:</h5>
+                        <p id="start-pt-id">{{map.start_pt}}</p>
+                        <h5>End Pt:</h5> 
+                        <p id="end-pt-id">{{map.end_pt}}</p>
+                        <h5>Transportation Mode:</h5>
+                        <p id="mode-id">{{map.mode}}</p>
+                        
 
+                        <p>
+                            <button class="btn btn-primary btn-outline-light" id="display-btn">
+                            Display Map
+                            </button>
+                                
+                            <a class="btn btn-info btn-outline-light" href="/main">
+                                Back to Main Page
+                                </a>    
 
-<div class="col mb-4">
-    <div class="card bg-light">
-    <div class="card-header">
-        <center>
-        <h3>Map # {{loop.index}}</h3>
-        {% if 'logged_in_user' in session and user.email == 'admin@test.com'%}
-        <b><i>{{map.user.fname}} {{map.user.lname}}</i></b>
-        {% endif %}
-        </center>
-    </div>
+                            <a class="btn btn-danger btn-outline-light" href="/delete-map/{{map.map_id}}" method="GET">
+                            Delete
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
 
-    <div class="card-body mx-auto">
-                
-        <h5>Start Pt:</h5>
-        <p id="start-pt-id">{{map.start_pt}}</p>
-        <h5>End Pt:</h5> 
-        <p id="end-pt-id">{{map.end_pt}}</p>
-        <h5>Transportation Mode:</h5>
-        <p id="mode-id">{{map.mode}}</p>
-        
+    {% else %}
 
-        <p>
-            <button class="btn btn-primary btn-outline-light" id="display-btn">
-            Display Map
-            </button>
-                
-            <a class="btn btn-info btn-outline-light" href="/main">
-                Back to Main Page
-                </a>    
+        <p>You have no saved maps.</p>
 
-            <a class="btn btn-danger btn-outline-light" href="/delete-map/{{map.map_id}}" method="GET">
-            Delete
-            </a>
-        
-        </p>
-
-
-</div>
-</div>
-</div>
-
-
-{% endfor %}
-</div>
-
-{% else %}
-
-<p>You have no saved maps.</p>
-
-
-{% endif %}
+    {% endif %}
 
 <script src="/static/js/saved-maps.js"></script>
 

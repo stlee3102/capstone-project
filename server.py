@@ -119,6 +119,29 @@ def show_registration():
     return render_template('register.html')
 
 
+@app.route('/register-user', methods=["POST"])
+def register_user():
+    fname = request.form.get("fname")
+    lname = request.form.get("lname")
+    email = request.form.get("email")
+    password = request.form.get("password")
+    user = crud.get_user_by_email(email)
+
+    if user:
+        flash("User already created. Please login.")
+        return redirect('/login')
+    else:
+        hashed_password = create_hashed_password(password)
+        
+        #create user
+        crud.create_user(fname, lname, email, hashed_password)
+        #automatically log in new user
+        user = crud.get_user_by_email(email)
+        session["logged_in_user"] = user.email
+        # flash("Account successfully registered")
+    return redirect(f"/main")
+
+
 @app.route('/login')
 def show_login():
     """Show login form"""
@@ -126,7 +149,7 @@ def show_login():
     return render_template('login.html')
 
 
-@app.route('/login', methods=["POST"])
+@app.route('/login-user', methods=["POST"])
 def login_user():
     """Login User"""
 
@@ -170,7 +193,7 @@ def show_admin():
     return redirect('/main')
 
 
-@app.route('/users')
+@app.route('/all-users')
 def show_all_users():
     
     user = crud.get_user_by_email(session.get("logged_in_user"))
@@ -180,35 +203,20 @@ def show_all_users():
     return render_template('users.html', list_users=list_users, user=user)
 
 
-@app.route('/users', methods=["POST"])
-def register_user():
-    fname = request.form.get("fname")
-    lname = request.form.get("lname")
-    email = request.form.get("email")
-    password = request.form.get("password")
-    user = crud.get_user_by_email(email)
+@app.route('/delete-user/<user_id>', methods=["GET"])
+def delete_user(user_id):
 
-    if user:
-        flash("User already created. Please login.")
-        return redirect('/login')
-    else:
-        hashed_password = create_hashed_password(password)
+    crud.delete_user(user_id)
         
-        #create user
-        crud.create_user(fname, lname, email, hashed_password)
-        #automatically log in new user
-        user = crud.get_user_by_email(email)
-        session["logged_in_user"] = user.email
-        # flash("Account successfully registered")
-    return redirect(f"/main")
+    return redirect('/all-users')
 
 
-@app.route('/users/<user_id>')
-def show_user(user_id):
+# @app.route('/users/<user_id>')
+# def show_user(user_id):
 
-    user = crud.get_user_by_id(user_id)
+#     user = crud.get_user_by_id(user_id)
 
-    return render_template('user_details.html', user=user)
+#     return render_template('user_details.html', user=user)
 
 
 @app.route("/display-map-action", methods=["GET"])
@@ -264,7 +272,6 @@ def delete_map(map_id):
         return redirect('/all-maps')
     else:
         return redirect('/user-maps')
-
 
 
 @app.route("/decode-polyline", methods=["POST"])

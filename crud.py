@@ -26,6 +26,26 @@ def get_user_by_email(email):
 
     return User.query.filter(User.email == email).first()
 
+def delete_user(user_id):
+    """Delete user"""
+    selected_user = User.query.filter(User.user_id==user_id).first()
+    user_maps = Map.query.filter(Map.user == selected_user).all()
+    user_packing_list = PackingList.query.filter(PackingList.user == selected_user).all()
+
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    print(selected_user)
+    print(user_maps)
+    print(user_packing_list)
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
+    
+    db.session.delete(selected_user)
+    for map in user_maps:
+        db.session.delete(map)
+    for packing_list in user_packing_list:
+        db.session.delete(packing_list)
+    db.session.commit()
+
 def create_map(start_pt, end_pt, mode, user_id):
     """Create and return a new saved map."""
 
