@@ -14,7 +14,7 @@ from authlib.integrations.flask_client import OAuth
 
 
 app = Flask(__name__)
-app.secret_key = 'dev'
+app.secret_key = os.environ['FLASK_SECRET_KEY']
 app.jinja_env.undefined = StrictUndefined
 
 MAPS_API_KEY = os.environ['GOOGLE_MAPS_KEY']
