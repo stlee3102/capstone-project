@@ -64,7 +64,7 @@ Admin can view all users' saved maps:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot10.png" width="900">
 
 Admin can see the encoded polyline string, decoded polyline coordinates, and test boundaries to debug map issues:
-<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot13.png" width="900">
+<img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot14.png" width="900">
 
 Admin can search weather data for any city:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot11.png" width="900">
