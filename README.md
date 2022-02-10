@@ -37,10 +37,10 @@ When the user clicks "Plan My Trip!", the app displays route timing, directions,
 Users can mouseover store location markers on the map to see the store name and can click the marker to display store information:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot3a.png" width="900">
 
-The main homepage after user account login welcomes the user by name and adds a "Save My Trip" button:
+The main homepage after user account login welcomes the user by name and adds a "Save My Trip" button. The navigation bar also changes to let the user see saved maps and make a packing list:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot3b.png" width="900">
 
-User can register for an account to save maps and packing list information. Passwords are salted and hashed before storing in database to protect against database leaks:
+Users can register for an account to save maps and packing list information. Passwords are salted and hashed before storing in database to protect against database leaks:
 <img src="https://github.com/stlee3102/capstone-project/blob/main/static/img/screenshot4.png" width="900">
 
 If a user has an account already, the user can log in to the account:

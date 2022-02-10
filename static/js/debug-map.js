@@ -225,20 +225,6 @@ function drawBoundary(map)
       });
 
     const insideBoundary = google.maps.geometry.poly.containsLocation(testCoord, waypointPath);
-    console.log("!!!!!!!!!!!!!!!!!!!!!");
-    console.log("!!!!!!!!!!!!!!!!!!!!!");
-    console.log(google.maps.geometry.poly.containsLocation(testCoord, waypointPath));
-    console.log("!!!!!!!!!!!!!!!!!!!!!");
-    console.log("!!!!!!!!!!!!!!!!!!!!!");
-
-      console.log("!!!!!!!!!!!!!!!!!!!!!");
-      console.log("TEST COORD:")
-      console.log(testCoord);
-      console.log("WAYPOINT PATH:")
-      console.log(waypointPath);
-      console.log("INSIDE BOUNDARY");
-      console.log(insideBoundary);
-      console.log("!!!!!!!!!!!!!!!!!!!!!");
 
       google.maps.event.addListener(map, "click", (e) => {
           
