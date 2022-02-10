@@ -1,0 +1,30 @@
+/* Set the size of the div element that contains the map */
+#show-boundary {
+  height: 400px;
+  width: 100%;
+}
+
+/* padding for the main directions and map area */
+#map-container{
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-top: 2%;
+  padding-bottom: 5%;
+}
+
+/* center spacing for weather forecast contents in weather table */
+#weather-table{
+  padding-left: 30%;
+}
+
+/* padding for destination information */
+#destination-information{
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+
+/* Make "Save My Maps" inside form button on same line as "Plan My Trip" button outside of form*/
+form{
+  display:inline;
+}

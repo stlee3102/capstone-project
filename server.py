@@ -218,6 +218,11 @@ def delete_user(user_id):
 
 #     return render_template('user_details.html', user=user)
 
+@app.route("/debug-map")
+def debug_map():
+    user = crud.get_user_by_email(session.get("logged_in_user"))   
+    return render_template('debug-map.html', user=user, MAPS_API_KEY = MAPS_API_KEY)
+
 
 @app.route("/display-map-action", methods=["GET"])
 def display_map_selection():

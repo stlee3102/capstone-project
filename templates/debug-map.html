@@ -5,7 +5,7 @@
 
 {% block head %}
 
-<link rel="stylesheet" type="text/css" href="/static/css/map-style.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/debug-map-style.css" />
 
 {% endblock %}
 {% block content %}
@@ -14,14 +14,6 @@
     <div class="row">
       <div id="map-container" class="col-7 bg-white" style="--bs-bg-opacity: .75;">
         <div id="base-form-info">
-          {% if 'logged_in_user' in session %}
-          <br>
-          <h2>Hi {{user.fname}}! Where would you like to go?</h2>
-          <br>
-          {% else %}
-          <h2>Hi there! Where would you like to go?</h2>        
-          <p><a href="/login">Log In</a> to save your map!</p>
-          {% endif %}
 
           <form action="/map-action" method="POST">
             <p>
@@ -55,11 +47,6 @@
               <br>
               <br>
             </div>
-      
-            
-            {% if 'logged_in_user' in session %}
-              <input class="btn btn-info" type="submit" value="Save My Trip" name="trip-button">
-            {% endif %}
             
           </form>
           <input class="btn btn-primary" type="submit" id="plan-trip-btn" value="Plan My Trip" name="trip-button">
@@ -68,8 +55,42 @@
 
         </div>
 
-        <div id="google-map" class="bg-light" style="--bs-bg-opacity: .75;"></div>
-        <div id="text-directions" class="bg-light" style="--bs-bg-opacity: .75;"></div>
+        <div class="card shadow mb-5 bg-body rounded">
+          <div class="card-header">
+              <center>
+                <b>Polyline Encoded String</b>
+              </center>
+          </div>
+
+          <div class="card-body mx-auto">
+            <p id="polyline-string" class="text-break"></p>
+          </div>
+        </div>
+
+
+        <div class="card shadow mb-5 bg-body rounded">
+          <div class="card-header">
+              <center>
+                <b>Polyline Decoded Coordinates</b>
+              </center>
+          </div>
+
+          <div class="card-body mx-auto">
+            <p id="route-coordinates" class="text-break"></p>
+          </div>
+        </div>
+
+        <div class="card shadow mb-5 bg-body rounded">
+          <div class="card-header">
+              <center>
+                <b>Show Boundary</b>
+              </center>
+          </div>
+            <div id="show-boundary"></div>
+        </div>
+
+
+
 
         <!-- Load Google Maps API -->
      
@@ -77,17 +98,10 @@
 
     </div>
 
-    <!-- Weather Bar -->
-    <div class="col-4 d-flex justify-content-center bg-light" style="--bs-bg-opacity: .75;">
-      
-      <div id="weather-forecast"><img id="weather-placeholder" src="/static/img/weather-placeholder.jpg" width="440px" height ="100%"></div>
-    
-    </div>
-
    </div>
 </div>
 
 
-<script src="/static/js/map.js"></script>
+<script src="/static/js/debug-map.js"></script>
 
 {% endblock %}
