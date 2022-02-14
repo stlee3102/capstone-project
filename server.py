@@ -427,8 +427,6 @@ def add_item():
     quantity = request.form.get('quantity', '')
     status = request.form.get('status', '') in ('true', 'True', 'TRUE') #boolean check of status string
 
-    user = crud.get_user_by_email(session.get("logged_in_user"))
-
     crud.add_item(user_id=user.user_id, item_name=item_name, category_name=category_name, quantity=quantity, status=status)
 
     if user.email == 'admin@test.com':
