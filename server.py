@@ -211,13 +211,6 @@ def delete_user(user_id):
     return redirect('/all-users')
 
 
-# @app.route('/users/<user_id>')
-# def show_user(user_id):
-
-#     user = crud.get_user_by_id(user_id)
-
-#     return render_template('user_details.html', user=user)
-
 @app.route("/debug-map")
 def debug_map():
     user = crud.get_user_by_email(session.get("logged_in_user"))   
@@ -345,7 +338,6 @@ def find_weather():
     q = request.args.get('q', '')
     days = request.args.get('days', '')
 
-
     url = 'http://api.weatherapi.com/v1/forecast.json'
     payload = {'key': WEATHER_API_KEY}
 
@@ -361,7 +353,6 @@ def find_weather():
     forecastdays = data['forecast']['forecastday']
 
     user = crud.get_user_by_email(session.get("logged_in_user"))
-
 
     return render_template('search-results.html',
                             pformat=pformat, forecastdays=forecastdays,
@@ -391,13 +382,13 @@ def show_all_packing_lists():
     return render_template('packinglist.html', user=user, packinglist=packinglist, categories=categories)
 
 
-@app.route('/add-category')
+@app.route('/category', methods=['POST'])
 def add_category():
     """Add Category to Packing List"""
 
     user = crud.get_user_by_email(session.get("logged_in_user"))
 
-    category_name = request.args.get('category-name', '')
+    category_name = request.form.get('category-name')
 
     crud.add_category(category_name=category_name)
 
@@ -407,13 +398,12 @@ def add_category():
         return redirect('/packing-list')
 
 
-@app.route('/delete-category')
+@app.route('/category/delete')
 def delete_category():
     """Delete Category to Packing List"""
 
     user = crud.get_user_by_email(session.get("logged_in_user"))
-
-    category_name = request.args.get('category-name', '')
+    category_name = request.args.get('category-name')
 
     if category_name != "Miscellaneous":
         crud.delete_category(category_name=category_name)
@@ -426,16 +416,16 @@ def delete_category():
         return redirect('/packing-list')
 
 
-@app.route('/add-item')
+@app.route('/item', methods=["POST"])
 def add_item():
     """Add Item to Packing List"""
 
     user = crud.get_user_by_email(session.get("logged_in_user"))
 
-    item_name = request.args.get('item-name', '')
-    category_name = request.args.get('category-name', '')
-    quantity = request.args.get('quantity', '')
-    status = request.args.get('status', '') in ('true', 'True', 'TRUE') #boolean check of status string
+    item_name = request.form.get('item-name', '')
+    category_name = request.form.get('category-name', '')
+    quantity = request.form.get('quantity', '')
+    status = request.form.get('status', '') in ('true', 'True', 'TRUE') #boolean check of status string
 
     user = crud.get_user_by_email(session.get("logged_in_user"))
 
@@ -446,7 +436,7 @@ def add_item():
     else:
         return redirect('/packing-list')
 
-@app.route('/delete-item/<item_id>', methods=["GET"])
+@app.route('/item/delete/<item_id>')
 def delete_item(item_id):
     """"Delete Item from Packing List"""
 
@@ -459,33 +449,25 @@ def delete_item(item_id):
     else:
         return redirect('/packing-list')
 
-@app.route('/change-item-status/<item_id>/<status>')
-def change_item_status(item_id, status):
-    """Change Status of Item in Packing List"""
-
+@app.route('/item/<item_id>', methods=['POST'])
+def update_item(item_id):
+    """Update item"""
     user = crud.get_user_by_email(session.get("logged_in_user"))
+    
+    status = request.json.get('status')
+    if status is not None:
+        """Change Status of Item in Packing List"""
+        crud.change_item_status(item_id=item_id, status=status)
 
-    crud.change_item_status(item_id=item_id, status=status)
+    quantity = request.json.get('quantity')
+    if quantity is not None:
+        """Change Quantity of Item in Packing List"""
+        crud.change_item_qty(item_id=item_id, qty=quantity)
     
     if user.email == 'admin@test.com':
         return redirect('/all-packing-lists')
     else:
         return redirect('/packing-list')
-
-
-@app.route('/change-item-qty/<item_id>/<qty>')
-def change_item_qty(item_id, qty):
-    """Change Quantity of Item in Packing List"""
-
-    user = crud.get_user_by_email(session.get("logged_in_user"))
-
-    crud.change_item_qty(item_id=item_id, qty=qty)
-    
-    if user.email == 'admin@test.com':
-        return redirect('/all-packing-lists')
-    else:
-        return redirect('/packing-list')
-
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)

@@ -31,13 +31,6 @@ def delete_user(user_id):
     selected_user = User.query.filter(User.user_id==user_id).first()
     user_maps = Map.query.filter(Map.user == selected_user).all()
     user_packing_list = PackingList.query.filter(PackingList.user == selected_user).all()
-
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    print(selected_user)
-    print(user_maps)
-    print(user_packing_list)
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-
     
     db.session.delete(selected_user)
     for map in user_maps:

@@ -3,27 +3,46 @@ for (const checkBox of document.querySelectorAll(".myCheck")) {
   checkBox.addEventListener('click', (evt) => {
     let item_id = checkBox.value; 
 
-    fetch(`/change-item-status/${item_id}/${checkBox.checked}`);
+    const status = {
+      status: checkBox.checked,
+    };
+
+    fetch(`/item/${item_id}`, {
+      method: 'POST',
+      body: JSON.stringify(status),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
   });
 
 }
 
+function update_item_quantity(item_id, value) {
+  const quantity = {
+    quantity: value,
+  };
+
+  fetch(`/item/${item_id}`, {
+    method: 'POST',
+    body: JSON.stringify(quantity),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+}
+
 for (const qty of document.querySelectorAll("#item-qty")) {
 
   qty.addEventListener('click', (evt) => {
-    let item_id = qty.name;
-
-    fetch(`/change-item-qty/${item_id}/${qty.value}`);
-
+    update_item_quantity(qty.name, qty.value);
   });
 
   qty.addEventListener('keyup', (evt) => {
     if (qty.value >= 0 && qty.value <= 20)
     {
-      let item_id = qty.name;
-
-      fetch(`/change-item-qty/${item_id}/${qty.value}`);
+      update_item_quantity(qty.name, qty.value);
     }
     else
     {

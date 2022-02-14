@@ -16,7 +16,7 @@ The application also uses [Faker library](https://faker.readthedocs.io/en/master
 
 ## <a name="technologies"></a>Tech Stack
 Backend: Python, Flask, PostgreSQL, SQLAlchemy<br/>
-Frontend: JavaScript, AJAX, Jinja2, Bootstrap, HTML5, CSS3<br/>
+Frontend: JavaScript, jQuery, AJAX, Jinja2, Bootstrap, HTML5, CSS3<br/>
 APIs: Google Places, Google Maps JavaScript, Google Directions, Google Sign-In, Weather, Polyline<br/>
 Libraries: Hashlib, Faker, Toastify<br/>
 

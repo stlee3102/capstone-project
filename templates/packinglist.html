@@ -18,7 +18,7 @@
 <div class="row container mx-auto" id="category-container">
   <div class="col-6 d-flex justify-content-center">
   
-  <form method="GET" action="/add-category">
+  <form method="POST" action="/category">
        
     <div class="row">
       <label class="form-label" for="cat-input"><b>Category To Add:</b></label>
@@ -43,7 +43,7 @@
 
     <div class="col-6 d-flex justify-content-left">
     
-    <form method="GET" action="/delete-category">
+    <form method="GET" action="/category/delete">
          
           <label class="form-label" for="cat-input"><b>Category To Delete:</b></label>
                 
@@ -80,7 +80,7 @@
 <div class="row container mx-auto">
 <div class="col-6 d-flex justify-content-center">
 
-<form method="GET" action="/add-item">
+<form method="POST" action="/item">
      
     <div class="row">
       <label class="form-label" for="item-input"><b>Item To Add:</b></label>
@@ -216,7 +216,7 @@
         {% endif %}
 
         <td class="table-cell">
-            <a class="btn btn-danger btn-outline-light" href="/delete-item/{{item.item_id}}" method="GET">
+            <a class="btn btn-danger btn-outline-light" href="/item/delete/{{item.item_id}}">
                 Delete
                 </a>
         </td>
