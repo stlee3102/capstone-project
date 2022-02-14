@@ -7,25 +7,14 @@ from flask import session, jsonify, render_template
 import os
 
 
-############# UNIT TESTS #############
-
-#mock database
-@patch('crud.db')
-def test_create_user(db_mock):
-    crud.create_user(fname="Stephanie", lname="Lee", email="slee@test.com", password="test")
-
-    db_mock.session.add.assert_called_once()
-    db_mock.session.commit.assert_called_once()
-
-############# INTEGRATION TESTS #############
-
 class FlaskTestsDatabase(unittest.TestCase):
     """Flask tests that use the database"""
 
     def setUp(self):
         # Get the Flask test client
         self.client = app.test_client()
-        app.config['TESTING'] = True
+        app.config['TESTING'] = True        
+        app.config['SECRET_KEY'] = os.environ['FLASK_SECRET_KEY']
 
         # Connect to test database
         connect_to_db(app, "postgresql:///testdb")
@@ -44,6 +33,14 @@ class FlaskTestsDatabase(unittest.TestCase):
         db.drop_all()
         db.engine.dispose()
 
+    @patch('crud.db') #actions are mocked on db, actions sent to no operation(no-op) so no action actually performed on db.
+    def test_create_user(self, db_mock):
+        """Test create add and commit user"""
+        crud.create_user(fname="Stephanie", lname="Lee", email="slee@test.com", password=b"test")
+
+        db_mock.session.add.assert_called_once()
+        db_mock.session.commit.assert_called_once()
+
     def test_login_function(self):
         """Test login page."""
 
@@ -51,6 +48,13 @@ class FlaskTestsDatabase(unittest.TestCase):
                                   data={"email": "admin@test.com", "password": "test"},
                                   follow_redirects=True)
         self.assertIn(b"Hi Admin", result.data)
+
+    def test_not_logged_in_function(self):
+        """Test main page anonymously."""
+
+        result = self.client.get("/main",
+                                  follow_redirects=True)
+        self.assertIn(b"Hi there", result.data)
 
 
 class FlaskTestsLoggedInAsAdmin(unittest.TestCase):
@@ -62,11 +66,10 @@ class FlaskTestsLoggedInAsAdmin(unittest.TestCase):
         app.config['TESTING'] = True
         app.config['SECRET_KEY'] = os.environ['FLASK_SECRET_KEY']
 
-        with self.client as u:
-            with u.session_transaction() as sess:
-                sess['user'] = "admin@test.com"
-                sess['user_id'] = 1
-
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess['logged_in_user'] = "admin@test.com"
+                
         # Connect to test database
         connect_to_db(app, "postgresql:///testdb")
 
@@ -83,6 +86,14 @@ class FlaskTestsLoggedInAsAdmin(unittest.TestCase):
         db.session.remove()
         db.drop_all()
         db.engine.dispose()
+
+
+    def test_logged_in_as_admin_function(self):
+        """Test main page logged in as admin."""
+
+        result = self.client.get("/main",
+                                  follow_redirects=True)
+        self.assertIn(b"Hi Admin", result.data)
 
     def test_return_all_packing_lists(self):
         """Test that all packing lists are returned for admin view"""
@@ -99,28 +110,15 @@ class FlaskTestsLoggedInAsAdmin(unittest.TestCase):
     def test_add_item(self):
         """Test that an item can be added to packing list"""
 
-        result.self.client.get("/add-item")
-        self.assertIn()
-        crud.add_item(user_id=2, item_name="Slacks", category_name=1, quantity=2, status=False)
+        result = self.client.post(
+            "/item", 
+            data={"user_id":1, "item-name":"Slacks", "category-name":1, "quantity":2, "status":False}, 
+            follow_redirects=True
+        )
+
+        self.assertIn(b"Slacks", result.data)
 
 
-
-
-#     user = crud.get_user_by_email(session.get("logged_in_user"))
-
-#     item_name = request.args.get('item-name', '')
-#     category_name = request.args.get('category-name', '')
-#     quantity = request.args.get('quantity', '')
-#     status = request.args.get('status', '') in ('true', 'True', 'TRUE') #boolean check of status string
-
-#     user = crud.get_user_by_email(session.get("logged_in_user"))
-
-#     crud.add_item(user_id=user.user_id, item_name=item_name, category_name=category_name, quantity=quantity, status=status)
-
-#     if user.email == 'admin@test.com':
-#         return redirect('/all-packing-lists')
-#     else:
-#         return redirect('/packing-list')
 
 if __name__ == "__main__":
     unittest.main()

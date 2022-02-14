@@ -419,7 +419,6 @@ def delete_category():
 @app.route('/item', methods=["POST"])
 def add_item():
     """Add Item to Packing List"""
-
     user = crud.get_user_by_email(session.get("logged_in_user"))
 
     item_name = request.form.get('item-name', '')
